@@ -1,0 +1,23 @@
+# Credenciais: nunca versionar (modelo em config.example.h)
+config.h
+.env
+
+# Node.js (simulador e broker local de teste)
+node_modules/
+package-lock.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# PlatformIO e Wokwi (saidas de compilacao)
+.pio/
+*.bin
+*.elf
+
+# Sistema operacional e editores
+.DS_Store
+Thumbs.db
+.vscode/

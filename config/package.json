@@ -1,0 +1,18 @@
+{
+  "name": "cardioia-fase3-ferramentas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ferramentas de teste da Parte 2 (CardioIA, Fase 3): simulador MQTT no formato do firmware, broker local e conversor dos relatorios",
+  "scripts": {
+    "simulador": "node ../scripts/simulador_mqtt_esp32.js mqtt://broker.hivemq.com:1883",
+    "relatorio1": "node ../scripts/md_para_docx.js ../document/md/relatorio_parte1.md ../document/relatorio_parte1.docx \"CardioIA, Fase 3, Parte 1: Edge Computing\"",
+    "relatorio2": "node ../scripts/md_para_docx.js ../document/md/relatorio_parte2.md ../document/relatorio_parte2.docx \"CardioIA, Fase 3, Parte 2: Fog e Cloud Computing\""
+  },
+  "dependencies": {
+    "mqtt": "^5.16.1",
+    "docx": "^9.8.1"
+  },
+  "devDependencies": {
+    "aedes": "^1.2.0"
+  }
+}

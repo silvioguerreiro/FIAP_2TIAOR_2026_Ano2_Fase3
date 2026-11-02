@@ -1,0 +1,6 @@
+# Bibliotecas do Arduino Library Manager usadas pelo projeto (Wokwi instala automaticamente)
+DHT sensor library
+Adafruit Unified Sensor
+Adafruit MPU6050
+Adafruit BusIO
+PubSubClient

@@ -1,0 +1,146 @@
+[
+  {
+    "id": "ia1aba000000001",
+    "type": "tab",
+    "label": "CardioIA Ir Alem 1 - Integracao com a API REST",
+    "disabled": false,
+    "info": "Encaminha cada amostra publicada pelo ESP32 (MQTT) para a API REST em Python, que verifica o risco e dispara o e-mail."
+  },
+  {
+    "id": "ia1broker000001",
+    "type": "mqtt-broker",
+    "name": "Broker MQTT (integracao API)",
+    "broker": "broker.hivemq.com",
+    "port": "1883",
+    "clientid": "cardioia-nodered-api-g55",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "autoUnsubscribe": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "userProps": "",
+    "sessionExpiry": ""
+  },
+  {
+    "id": "ia1comment00001",
+    "type": "comment",
+    "z": "ia1aba000000001",
+    "name": "Ir Alem 1: ESP32 (MQTT) -> Node-RED -> API REST (FastAPI) -> verificacao de risco e e-mail",
+    "info": "Pre-requisito: API em execucao (uvicorn api.main:app) em http://127.0.0.1:8000/sinais",
+    "x": 420,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "ia1mqttin000001",
+    "type": "mqtt in",
+    "z": "ia1aba000000001",
+    "name": "MQTT sinais (ESP32)",
+    "topic": "cardioia/grupo55/paciente01/sinais",
+    "qos": "1",
+    "datatype": "json",
+    "broker": "ia1broker000001",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 150,
+    "y": 120,
+    "wires": [
+      [
+        "ia1prep00000001"
+      ]
+    ]
+  },
+  {
+    "id": "ia1prep00000001",
+    "type": "function",
+    "z": "ia1aba000000001",
+    "name": "Preparar requisicao",
+    "func": "// Prepara a requisicao para a API REST do Ir Alem 1.\n// O payload publicado pelo ESP32 ja esta no formato aceito por POST /sinais;\n// apenas garantimos o tipo e registramos a origem para rastreabilidade.\nconst p = msg.payload;\nif (!p || typeof p !== 'object') { node.warn('payload invalido'); return null; }\nmsg.headers = { 'Content-Type': 'application/json' };\nmsg.payload = p;\nnode.status({ fill: 'blue', shape: 'dot', text: 'seq ' + p.seq + ' -> API' });\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 380,
+    "y": 120,
+    "wires": [
+      [
+        "ia1http00000001"
+      ]
+    ]
+  },
+  {
+    "id": "ia1http00000001",
+    "type": "http request",
+    "z": "ia1aba000000001",
+    "name": "POST /sinais (API REST)",
+    "method": "POST",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "http://127.0.0.1:8000/sinais",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "x": 620,
+    "y": 120,
+    "wires": [
+      [
+        "ia1resumo000001"
+      ]
+    ]
+  },
+  {
+    "id": "ia1resumo000001",
+    "type": "function",
+    "z": "ia1aba000000001",
+    "name": "Resumir resposta",
+    "func": "// Resume a resposta da API (201 com alertas e indicador de e-mail).\nif (msg.statusCode !== 201) {\n    node.status({ fill: 'red', shape: 'ring', text: 'HTTP ' + msg.statusCode });\n    node.error('API respondeu ' + msg.statusCode + ': ' + JSON.stringify(msg.payload));\n    return null;\n}\nconst r = msg.payload;\nconst tipos = (r.alertas || []).map(a => a.tipo).join(', ') || 'nenhum';\nnode.status({ fill: r.alertas && r.alertas.length ? 'red' : 'green', shape: 'dot',\n              text: 'id ' + r.id + ' | ' + tipos + (r.email_enviado ? ' | e-mail' : '') });\nmsg.payload = { id: r.id, instante: r.instante, alertas: tipos, email_enviado: r.email_enviado };\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 850,
+    "y": 120,
+    "wires": [
+      [
+        "ia1debug0000001"
+      ]
+    ]
+  },
+  {
+    "id": "ia1debug0000001",
+    "type": "debug",
+    "z": "ia1aba000000001",
+    "name": "debug resposta da API",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1080,
+    "y": 120,
+    "wires": []
+  }
+]

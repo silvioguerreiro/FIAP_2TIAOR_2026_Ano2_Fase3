@@ -1,0 +1,47 @@
+Evidencia: execucao da suite de testes (pytest) do Ir Alem 1 em 31/10/2026 (ambiente de trabalho, Python 3.13.18, FastAPI 0.162.0).
+Comando: python3 -m pytest -v, na pasta src/ir_alem1_rest_email.
+----------------------------------------------------------------------------------------------------
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.1.1, pluggy-1.6.0 -- /usr/local/bin/python3
+cachedir: .pytest_cache
+rootdir: /mnt/attach/outputs/03_entrega/src/ir_alem1_rest_email
+plugins: platformdirs-4.13.3, anyio-4.15.1
+collecting ... collected 35 items
+
+tests/test_api.py::test_saude PASSED                                     [  2%]
+tests/test_api.py::test_post_normal_sem_alerta_e_consulta PASSED         [  5%]
+tests/test_api.py::test_post_taquicardia_gera_alerta_e_email_uma_vez PASSED [  8%]
+tests/test_api.py::test_ausencia_de_movimento_pelo_historico PASSED      [ 11%]
+tests/test_api.py::test_lote_ordena_por_tempo PASSED                     [ 14%]
+tests/test_api.py::test_validacao_rejeita_payload_invalido PASSED        [ 17%]
+tests/test_api.py::test_ultimo_e_404_sem_dados PASSED                    [ 20%]
+tests/test_api.py::test_carimbo_relativo_usa_hora_de_chegada PASSED      [ 22%]
+tests/test_api.py::test_limpar PASSED                                    [ 25%]
+tests/test_notificacao.py::test_mensagem_contem_pseudonimo_alertas_e_aviso PASSED [ 28%]
+tests/test_notificacao.py::test_modo_simulado_registra_em_log_e_historico PASSED [ 31%]
+tests/test_notificacao.py::test_intervalo_minimo_suprime_repeticao_do_mesmo_tipo PASSED [ 34%]
+tests/test_notificacao.py::test_tipo_novo_dispara_mesmo_dentro_do_intervalo PASSED [ 37%]
+tests/test_notificacao.py::test_pacientes_diferentes_sao_independentes PASSED [ 40%]
+tests/test_notificacao.py::test_sem_alertas_nao_envia PASSED             [ 42%]
+tests/test_notificacao.py::test_modo_local_sem_servidor_falha_sem_excecao PASSED [ 45%]
+tests/test_risco.py::test_amostra_normal_nao_gera_alerta PASSED          [ 48%]
+tests/test_risco.py::test_taquicardia_no_limite[120-esperado0] PASSED    [ 51%]
+tests/test_risco.py::test_taquicardia_no_limite[121-esperado1] PASSED    [ 54%]
+tests/test_risco.py::test_taquicardia_no_limite[150-esperado2] PASSED    [ 57%]
+tests/test_risco.py::test_bradicardia_no_limite[50-esperado0] PASSED     [ 60%]
+tests/test_risco.py::test_bradicardia_no_limite[49-esperado1] PASSED     [ 62%]
+tests/test_risco.py::test_bradicardia_no_limite[30-esperado2] PASSED     [ 65%]
+tests/test_risco.py::test_bpm_zero_e_ausencia_de_leitura_nao_bradicardia PASSED [ 68%]
+tests/test_risco.py::test_febre_e_hipotermia_nos_limites[38.0-esperado0] PASSED [ 71%]
+tests/test_risco.py::test_febre_e_hipotermia_nos_limites[38.1-esperado1] PASSED [ 74%]
+tests/test_risco.py::test_febre_e_hipotermia_nos_limites[35.0-esperado2] PASSED [ 77%]
+tests/test_risco.py::test_febre_e_hipotermia_nos_limites[34.9-esperado3] PASSED [ 80%]
+tests/test_risco.py::test_temperatura_ausente_nao_gera_alerta_termico PASSED [ 82%]
+tests/test_risco.py::test_sem_movimento_depende_do_tempo_parado PASSED   [ 85%]
+tests/test_risco.py::test_sem_movimento_nao_dispara_sem_historico_nem_com_movimento_atual PASSED [ 88%]
+tests/test_risco.py::test_mascara_do_dispositivo_e_incorporada_sem_duplicar PASSED [ 91%]
+tests/test_risco.py::test_multiplos_alertas_na_mesma_amostra PASSED      [ 94%]
+tests/test_risco.py::test_limites_personalizados PASSED                  [ 97%]
+tests/test_risco.py::test_supervisao_sem_dados PASSED                    [100%]
+
+============================== 35 passed in 1.02s ==============================

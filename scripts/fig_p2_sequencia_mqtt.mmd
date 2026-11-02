@@ -1,0 +1,28 @@
+sequenceDiagram
+  participant E as ESP32 (Edge)
+  participant B as Broker MQTT
+  participant N as Node-RED (Fog)
+  E->>B: CONNECT (clientId cardioia-g55-p01, keepalive 30 s,<br/>testamento em /estado: offline_inesperado, QoS 1, retido)
+  B-->>E: CONNACK
+  N->>B: SUBSCRIBE cardioia/grupo55/paciente01/ (curinga multinivel)
+  B-->>N: mensagens retidas de /estado e /alertas
+  loop a cada 5 s, dispositivo online
+    E->>B: PUBLISH /sinais JSON (origem rt, seq, ts NTP)
+    B-->>N: /sinais
+    Note right of N: normaliza, avalia limites,<br/>atualiza graficos e medidores
+    opt alerta ativo ou mudanca no estado dos alertas
+      E->>B: PUBLISH /alertas JSON (retido)
+      B-->>N: /alertas
+      Note right of N: painel vermelho<br/>e notificacao
+    end
+  end
+  E->>B: PUBLISH /estado online (a cada 30 s, retido)
+  Note right of E: chave desligada: PUBLISH /estado offline e DISCONNECT.<br/>offline, as amostras vao para o buffer circular<br/>e os alertas locais (LED e buzzer) continuam
+  E->>B: reconexao: CONNECT
+  E->>B: PUBLISH /estado sincronizando (pendentes = n)
+  loop para cada amostra pendente, da mais antiga a mais recente
+    E->>B: PUBLISH /sinais JSON (origem sync, ts original)
+    B-->>N: /sinais
+    Note right of N: posiciona a amostra pelo<br/>carimbo original no grafico
+  end
+  E->>B: PUBLISH /estado online

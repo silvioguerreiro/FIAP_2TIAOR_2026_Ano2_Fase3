@@ -1,0 +1,322 @@
+Evidencia: log do servidor da API (uvicorn) durante a execucao do cliente REST em 31/10/2026. Linhas [ALERTA] indicam
+amostras com risco e se o e-mail foi enviado ou suprimido pelo intervalo minimo (anti-spam).
+----------------------------------------------------------------------------------------------------
+INFO:     Started server process [4253]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:47124 - "GET /saude HTTP/1.1" 200 OK
+2026-10-30 22:19:41,941 INFO cardioia.api: [OK] cardioia-g55-p01 seq=1 bpm=68 temp=36.44
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:41,965 INFO cardioia.api: [OK] cardioia-g55-p01 seq=2 bpm=67 temp=36.74
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:41,989 INFO cardioia.api: [OK] cardioia-g55-p01 seq=3 bpm=77 temp=36.69
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,013 INFO cardioia.api: [OK] cardioia-g55-p01 seq=4 bpm=75 temp=36.56
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,036 INFO cardioia.api: [OK] cardioia-g55-p01 seq=5 bpm=70 temp=36.42
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,060 INFO cardioia.api: [OK] cardioia-g55-p01 seq=6 bpm=76 temp=36.68
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,084 INFO cardioia.api: [OK] cardioia-g55-p01 seq=7 bpm=118 temp=36.7
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,111 INFO cardioia.email: [EMAIL simulado] [CardioIA] Alerta ALTA: taquicardia (cardioia-g55-p01) -> equipe-clinica@exemplo.local
+2026-10-30 22:19:42,113 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=8: taquicardia | e-mail enviado
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,137 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=9: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,161 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=10: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,185 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=11: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,209 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=12: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,234 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=13: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,258 INFO cardioia.api: [OK] cardioia-g55-p01 seq=14 bpm=110 temp=36.7
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,283 INFO cardioia.api: [OK] cardioia-g55-p01 seq=15 bpm=89 temp=37.4
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,307 INFO cardioia.api: [OK] cardioia-g55-p01 seq=16 bpm=94 temp=37.9
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,332 INFO cardioia.email: [EMAIL simulado] [CardioIA] Alerta MEDIA: febre (cardioia-g55-p01) -> equipe-clinica@exemplo.local
+2026-10-30 22:19:42,334 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=17: febre | e-mail enviado
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,358 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=18: febre | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,382 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=19: febre | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,407 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=20: febre | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,431 INFO cardioia.api: [OK] cardioia-g55-p01 seq=21 bpm=84 temp=37.9
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,455 INFO cardioia.api: [OK] cardioia-g55-p01 seq=22 bpm=80 temp=37.6
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,479 INFO cardioia.api: [OK] cardioia-g55-p01 seq=23 bpm=76 temp=37.59
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,503 INFO cardioia.api: [OK] cardioia-g55-p01 seq=24 bpm=79 temp=37.58
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,527 INFO cardioia.api: [OK] cardioia-g55-p01 seq=25 bpm=71 temp=37.57
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,551 INFO cardioia.api: [OK] cardioia-g55-p01 seq=26 bpm=80 temp=37.56
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,576 INFO cardioia.api: [OK] cardioia-g55-p01 seq=27 bpm=74 temp=37.55
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,600 INFO cardioia.api: [OK] cardioia-g55-p01 seq=28 bpm=74 temp=37.54
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,623 INFO cardioia.api: [OK] cardioia-g55-p01 seq=29 bpm=74 temp=37.53
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,647 INFO cardioia.api: [OK] cardioia-g55-p01 seq=30 bpm=79 temp=37.52
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,671 INFO cardioia.api: [OK] cardioia-g55-p01 seq=31 bpm=77 temp=37.51
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,695 INFO cardioia.api: [OK] cardioia-g55-p01 seq=32 bpm=71 temp=37.5
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,719 INFO cardioia.api: [OK] cardioia-g55-p01 seq=33 bpm=78 temp=37.49
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,742 INFO cardioia.api: [OK] cardioia-g55-p01 seq=34 bpm=74 temp=37.48
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,766 INFO cardioia.api: [OK] cardioia-g55-p01 seq=35 bpm=78 temp=37.47
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,790 INFO cardioia.api: [OK] cardioia-g55-p01 seq=36 bpm=79 temp=37.46
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,814 INFO cardioia.api: [OK] cardioia-g55-p01 seq=37 bpm=74 temp=37.45
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,839 INFO cardioia.api: [OK] cardioia-g55-p01 seq=38 bpm=73 temp=37.44
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,863 INFO cardioia.api: [OK] cardioia-g55-p01 seq=39 bpm=75 temp=37.43
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,887 INFO cardioia.api: [OK] cardioia-g55-p01 seq=40 bpm=75 temp=37.42
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,911 INFO cardioia.api: [OK] cardioia-g55-p01 seq=41 bpm=78 temp=37.41
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,935 INFO cardioia.api: [OK] cardioia-g55-p01 seq=42 bpm=70 temp=37.4
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,959 INFO cardioia.api: [OK] cardioia-g55-p01 seq=43 bpm=80 temp=37.39
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:42,983 INFO cardioia.api: [OK] cardioia-g55-p01 seq=44 bpm=75 temp=37.38
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,006 INFO cardioia.api: [OK] cardioia-g55-p01 seq=45 bpm=74 temp=37.37
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,030 INFO cardioia.api: [OK] cardioia-g55-p01 seq=46 bpm=76 temp=37.36
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,053 INFO cardioia.api: [OK] cardioia-g55-p01 seq=47 bpm=77 temp=37.35
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,077 INFO cardioia.api: [OK] cardioia-g55-p01 seq=48 bpm=73 temp=37.34
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,101 INFO cardioia.api: [OK] cardioia-g55-p01 seq=49 bpm=73 temp=37.33
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,125 INFO cardioia.api: [OK] cardioia-g55-p01 seq=50 bpm=75 temp=37.32
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,148 INFO cardioia.api: [OK] cardioia-g55-p01 seq=51 bpm=80 temp=37.31
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,172 INFO cardioia.api: [OK] cardioia-g55-p01 seq=52 bpm=70 temp=37.3
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,196 INFO cardioia.api: [OK] cardioia-g55-p01 seq=53 bpm=79 temp=37.29
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,220 INFO cardioia.api: [OK] cardioia-g55-p01 seq=54 bpm=72 temp=37.28
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,244 INFO cardioia.api: [OK] cardioia-g55-p01 seq=55 bpm=80 temp=37.27
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,268 INFO cardioia.api: [OK] cardioia-g55-p01 seq=56 bpm=71 temp=37.26
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,292 INFO cardioia.api: [OK] cardioia-g55-p01 seq=57 bpm=74 temp=37.25
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,316 INFO cardioia.api: [OK] cardioia-g55-p01 seq=58 bpm=73 temp=37.24
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,340 INFO cardioia.api: [OK] cardioia-g55-p01 seq=59 bpm=70 temp=37.23
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,365 INFO cardioia.api: [OK] cardioia-g55-p01 seq=60 bpm=73 temp=37.22
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,389 INFO cardioia.api: [OK] cardioia-g55-p01 seq=61 bpm=79 temp=37.21
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,414 INFO cardioia.api: [OK] cardioia-g55-p01 seq=62 bpm=73 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,438 INFO cardioia.api: [OK] cardioia-g55-p01 seq=63 bpm=70 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,462 INFO cardioia.api: [OK] cardioia-g55-p01 seq=64 bpm=74 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,486 INFO cardioia.api: [OK] cardioia-g55-p01 seq=65 bpm=75 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,510 INFO cardioia.api: [OK] cardioia-g55-p01 seq=66 bpm=76 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,533 INFO cardioia.api: [OK] cardioia-g55-p01 seq=67 bpm=75 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,556 INFO cardioia.api: [OK] cardioia-g55-p01 seq=68 bpm=72 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,580 INFO cardioia.api: [OK] cardioia-g55-p01 seq=69 bpm=70 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,604 INFO cardioia.api: [OK] cardioia-g55-p01 seq=70 bpm=78 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,628 INFO cardioia.api: [OK] cardioia-g55-p01 seq=71 bpm=80 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,652 INFO cardioia.api: [OK] cardioia-g55-p01 seq=72 bpm=74 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,676 INFO cardioia.api: [OK] cardioia-g55-p01 seq=73 bpm=75 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,699 INFO cardioia.api: [OK] cardioia-g55-p01 seq=74 bpm=80 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,724 INFO cardioia.api: [OK] cardioia-g55-p01 seq=75 bpm=78 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,748 INFO cardioia.api: [OK] cardioia-g55-p01 seq=76 bpm=78 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,772 INFO cardioia.api: [OK] cardioia-g55-p01 seq=77 bpm=70 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,796 INFO cardioia.api: [OK] cardioia-g55-p01 seq=78 bpm=71 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,820 INFO cardioia.api: [OK] cardioia-g55-p01 seq=79 bpm=76 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,844 INFO cardioia.api: [OK] cardioia-g55-p01 seq=80 bpm=70 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,868 INFO cardioia.api: [OK] cardioia-g55-p01 seq=81 bpm=78 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,891 INFO cardioia.api: [OK] cardioia-g55-p01 seq=82 bpm=73 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,914 INFO cardioia.api: [OK] cardioia-g55-p01 seq=83 bpm=72 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,938 INFO cardioia.api: [OK] cardioia-g55-p01 seq=84 bpm=79 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,962 INFO cardioia.api: [OK] cardioia-g55-p01 seq=85 bpm=78 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:43,986 INFO cardioia.api: [OK] cardioia-g55-p01 seq=86 bpm=78 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,011 INFO cardioia.api: [OK] cardioia-g55-p01 seq=87 bpm=78 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,034 INFO cardioia.api: [OK] cardioia-g55-p01 seq=88 bpm=76 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,058 INFO cardioia.api: [OK] cardioia-g55-p01 seq=89 bpm=70 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,082 INFO cardioia.api: [OK] cardioia-g55-p01 seq=90 bpm=71 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,106 INFO cardioia.api: [OK] cardioia-g55-p01 seq=91 bpm=79 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,130 INFO cardioia.api: [OK] cardioia-g55-p01 seq=92 bpm=79 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,153 INFO cardioia.api: [OK] cardioia-g55-p01 seq=93 bpm=74 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,177 INFO cardioia.api: [OK] cardioia-g55-p01 seq=94 bpm=72 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,201 INFO cardioia.api: [OK] cardioia-g55-p01 seq=95 bpm=71 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,225 INFO cardioia.api: [OK] cardioia-g55-p01 seq=96 bpm=77 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,248 INFO cardioia.api: [OK] cardioia-g55-p01 seq=97 bpm=71 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,272 INFO cardioia.api: [OK] cardioia-g55-p01 seq=98 bpm=76 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,296 INFO cardioia.api: [OK] cardioia-g55-p01 seq=99 bpm=78 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,319 INFO cardioia.api: [OK] cardioia-g55-p01 seq=100 bpm=77 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,343 INFO cardioia.api: [OK] cardioia-g55-p01 seq=101 bpm=75 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,366 INFO cardioia.api: [OK] cardioia-g55-p01 seq=102 bpm=71 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,390 INFO cardioia.api: [OK] cardioia-g55-p01 seq=103 bpm=71 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,413 INFO cardioia.api: [OK] cardioia-g55-p01 seq=104 bpm=79 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,437 INFO cardioia.api: [OK] cardioia-g55-p01 seq=105 bpm=71 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,461 INFO cardioia.api: [OK] cardioia-g55-p01 seq=106 bpm=74 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,484 INFO cardioia.api: [OK] cardioia-g55-p01 seq=107 bpm=79 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,508 INFO cardioia.api: [OK] cardioia-g55-p01 seq=108 bpm=70 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,531 INFO cardioia.api: [OK] cardioia-g55-p01 seq=109 bpm=72 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,555 INFO cardioia.api: [OK] cardioia-g55-p01 seq=110 bpm=77 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,579 INFO cardioia.api: [OK] cardioia-g55-p01 seq=111 bpm=77 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,603 INFO cardioia.api: [OK] cardioia-g55-p01 seq=112 bpm=72 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,627 INFO cardioia.api: [OK] cardioia-g55-p01 seq=113 bpm=77 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,650 INFO cardioia.api: [OK] cardioia-g55-p01 seq=114 bpm=75 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,674 INFO cardioia.api: [OK] cardioia-g55-p01 seq=115 bpm=71 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,697 INFO cardioia.api: [OK] cardioia-g55-p01 seq=116 bpm=79 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,720 INFO cardioia.api: [OK] cardioia-g55-p01 seq=117 bpm=75 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,744 INFO cardioia.api: [OK] cardioia-g55-p01 seq=118 bpm=77 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,767 INFO cardioia.api: [OK] cardioia-g55-p01 seq=119 bpm=79 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,790 INFO cardioia.api: [OK] cardioia-g55-p01 seq=120 bpm=77 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,814 INFO cardioia.api: [OK] cardioia-g55-p01 seq=121 bpm=80 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,837 INFO cardioia.api: [OK] cardioia-g55-p01 seq=122 bpm=73 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,860 INFO cardioia.api: [OK] cardioia-g55-p01 seq=123 bpm=79 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,884 INFO cardioia.api: [OK] cardioia-g55-p01 seq=124 bpm=75 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,907 INFO cardioia.api: [OK] cardioia-g55-p01 seq=125 bpm=76 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,930 INFO cardioia.api: [OK] cardioia-g55-p01 seq=126 bpm=72 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,953 INFO cardioia.api: [OK] cardioia-g55-p01 seq=127 bpm=71 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:44,977 INFO cardioia.api: [OK] cardioia-g55-p01 seq=128 bpm=74 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,000 INFO cardioia.api: [OK] cardioia-g55-p01 seq=129 bpm=71 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,024 INFO cardioia.api: [OK] cardioia-g55-p01 seq=130 bpm=80 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,048 INFO cardioia.api: [OK] cardioia-g55-p01 seq=131 bpm=80 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,071 INFO cardioia.api: [OK] cardioia-g55-p01 seq=132 bpm=76 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,094 INFO cardioia.api: [OK] cardioia-g55-p01 seq=133 bpm=77 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,118 INFO cardioia.api: [OK] cardioia-g55-p01 seq=134 bpm=73 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,142 INFO cardioia.api: [OK] cardioia-g55-p01 seq=135 bpm=78 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,165 INFO cardioia.api: [OK] cardioia-g55-p01 seq=136 bpm=77 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,189 INFO cardioia.api: [OK] cardioia-g55-p01 seq=137 bpm=78 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,212 INFO cardioia.api: [OK] cardioia-g55-p01 seq=138 bpm=71 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,236 INFO cardioia.api: [OK] cardioia-g55-p01 seq=139 bpm=75 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,259 INFO cardioia.api: [OK] cardioia-g55-p01 seq=140 bpm=76 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,282 INFO cardioia.api: [OK] cardioia-g55-p01 seq=141 bpm=79 temp=37.2
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,306 INFO cardioia.email: [EMAIL simulado] [CardioIA] Alerta ALTA: sem_movimento (cardioia-g55-p01) -> equipe-clinica@exemplo.local
+2026-10-30 22:19:45,307 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=142: sem_movimento | e-mail enviado
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,331 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=143: sem_movimento | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,355 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=144: sem_movimento | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,378 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=145: sem_movimento | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,401 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=146: sem_movimento | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,425 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=147: sem_movimento | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,449 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=148: sem_movimento | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,473 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=149: sem_movimento | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,496 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=150: sem_movimento | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:19:45,520 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=151: sem_movimento | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:47124 - "POST /sinais HTTP/1.1" 201 Created
+INFO:     127.0.0.1:47124 - "GET /sinais/ultimo?disp=cardioia-g55-p01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47124 - "GET /sinais?disp=cardioia-g55-p01&limite=1000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47124 - "GET /alertas?disp=cardioia-g55-p01&limite=1000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47124 - "GET /pacientes/cardioia-g55-p01/resumo HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47124 - "GET /notificacoes HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [4253]

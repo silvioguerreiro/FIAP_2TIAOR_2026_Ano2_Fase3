@@ -1,0 +1,7 @@
+# Ir Alem 2: versoes usadas na execucao de 31/10/2026 (Python 3.12); versoes proximas funcionam
+numpy==2.5.3
+pandas==3.0.5
+scikit-learn==1.9.1
+matplotlib==3.11.2
+jupyterlab>=4.0
+nbconvert>=7.0

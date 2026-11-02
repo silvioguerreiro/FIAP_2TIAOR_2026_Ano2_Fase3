@@ -1,0 +1,42 @@
+Evidencia: saida do cliente REST (python -m cliente.cliente_rest --url http://127.0.0.1:8000 --intervalo 0.02) em 31/10/2026,
+contra a API em execucao local (uvicorn api.main:app), e-mail em modo simulado. 151 amostras em quatro cenarios
+(normal, taquicardia, febre, imobilidade); so as mudancas de cenario e as amostras com alerta sao impressas.
+----------------------------------------------------------------------------------------------------
+API 0.1.0 em http://127.0.0.1:8000 | e-mail em modo simulado | limites {'bpm_maximo': 120, 'bpm_minimo': 50, 'temperatura_maxima': 38.0, 'temperatura_minima': 35.0, 'sem_movimento_s': 600, 'sem_dados_s': 300}
+[normal     ] seq=  1 bpm= 68 temp=36.44 mov=1 -> alertas: nenhum
+[taquicardia] seq=  7 bpm=118 temp=36.70 mov=1 -> alertas: nenhum
+[taquicardia] seq=  8 bpm=131 temp=36.70 mov=1 -> alertas: taquicardia | E-MAIL ENVIADO
+[taquicardia] seq=  9 bpm=146 temp=36.70 mov=1 -> alertas: taquicardia
+[taquicardia] seq= 10 bpm=152 temp=36.70 mov=1 -> alertas: taquicardia
+[taquicardia] seq= 11 bpm=149 temp=36.70 mov=1 -> alertas: taquicardia
+[taquicardia] seq= 12 bpm=140 temp=36.70 mov=1 -> alertas: taquicardia
+[taquicardia] seq= 13 bpm=124 temp=36.70 mov=1 -> alertas: taquicardia
+[febre      ] seq= 15 bpm= 89 temp=37.40 mov=0 -> alertas: nenhum
+[febre      ] seq= 17 bpm= 93 temp=38.20 mov=0 -> alertas: febre | E-MAIL ENVIADO
+[febre      ] seq= 18 bpm= 91 temp=38.60 mov=0 -> alertas: febre
+[febre      ] seq= 19 bpm= 90 temp=38.80 mov=0 -> alertas: febre
+[febre      ] seq= 20 bpm= 96 temp=38.50 mov=0 -> alertas: febre
+[movimento  ] seq= 21 bpm= 84 temp=37.90 mov=1 -> alertas: nenhum
+[imovel     ] seq= 22 bpm= 80 temp=37.60 mov=0 -> alertas: nenhum
+[imovel     ] seq=142 bpm= 74 temp=37.20 mov=0 -> alertas: sem_movimento | E-MAIL ENVIADO
+[imovel     ] seq=143 bpm= 74 temp=37.20 mov=0 -> alertas: sem_movimento
+[imovel     ] seq=144 bpm= 76 temp=37.20 mov=0 -> alertas: sem_movimento
+[imovel     ] seq=145 bpm= 79 temp=37.20 mov=0 -> alertas: sem_movimento
+[imovel     ] seq=146 bpm= 80 temp=37.20 mov=0 -> alertas: sem_movimento
+[imovel     ] seq=147 bpm= 72 temp=37.20 mov=0 -> alertas: sem_movimento
+[imovel     ] seq=148 bpm= 75 temp=37.20 mov=0 -> alertas: sem_movimento
+[imovel     ] seq=149 bpm= 72 temp=37.20 mov=0 -> alertas: sem_movimento
+[imovel     ] seq=150 bpm= 70 temp=37.20 mov=0 -> alertas: sem_movimento
+[imovel     ] seq=151 bpm= 78 temp=37.20 mov=0 -> alertas: sem_movimento
+
+Consultas à API:
+  GET /sinais/ultimo      -> seq 151, alertas ['sem_movimento']
+  GET /sinais             -> 151 amostras armazenadas
+  GET /alertas            -> 20 amostras com alerta
+  GET /pacientes/.../resumo -> total 151, alertas ativos ['sem_movimento']
+  GET /notificacoes       -> 3 e-mails gerados:
+      2026-10-31T02:19:42 [simulado] [CardioIA] Alerta ALTA: taquicardia (cardioia-g55-p01) (entregue=True)
+      2026-10-31T02:19:42 [simulado] [CardioIA] Alerta MEDIA: febre (cardioia-g55-p01) (entregue=True)
+      2026-10-31T02:19:45 [simulado] [CardioIA] Alerta ALTA: sem_movimento (cardioia-g55-p01) (entregue=True)
+
+Resumo: 151 amostras enviadas, 20 com alerta, 3 e-mails disparados.

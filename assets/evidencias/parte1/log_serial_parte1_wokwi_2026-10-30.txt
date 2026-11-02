@@ -1,0 +1,174 @@
+Evidencia: log do monitor serial (115200) do projeto da Parte 1 (Edge) executado no Wokwi (wokwi.com, ESP32 DevKit C V4)
+Capturado em 30/10/2026 (Cuiaba) a partir do navegador integrado, texto copiado do monitor serial sem edicao de conteudo.
+Firmware: sketch.ino, versao da noite de 30/10/2026 (USAR_SPIFFS 0, DEMO_AUTOMATICO 0, MODO_DEMONSTRACAO 1).
+
+Acoes do operador durante a sessao (tempo de simulacao aproximado):
+  t=33 s   chave deslizante movida para a posicao OFFLINE
+  t=75 s   DHT22 ajustado de 24,0 C (padrao do Wokwi) para 36,5 C
+  t=100 s  12 pressoes do botao a cada 750 ms (80 bpm)
+  t=125 s  30 pressoes do botao a cada 400 ms (150 bpm, taquicardia)
+  t=150 s  MPU6050 com aceleracao X = 0,8 g por 6 s (movimento), depois repouso
+  t=241 s  chave deslizante movida para a posicao ONLINE (sincronizacao das 41 amostras pendentes)
+
+Legenda do CSV: ts_s (segundos desde o boot), temp_c, umid_pct, bpm, mov (1 = movimento), alertas (bitmask: 1 taquicardia, 2 bradicardia, 4 febre, 8 hipotermia, 16 sem movimento)
+
+---------------------------------------------------------------------------------------------------
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1156
+load:0x40078000,len:11456
+ho 0 tail 12 room 4
+load:0x40080400,len:2972
+entry 0x400805dc
+
+[BOOT] CardioIA Fase 3, Parte 1 (Edge): wearable cardiaco simulado
+[BOOT] amostragem=5000 ms, buffer=3000 amostras x 16 bytes = 48000 bytes
+[BOOT] autonomia offline estimada=15000 s (4.2 h)
+[BOOT] limites: bpm>120 taquicardia, bpm<50 bradicardia, temp>38.0 febre, temp<35.0 hipotermia, sem movimento>60 s
+[BOOT] heap livre antes dos sensores=283376 bytes
+[BOOT] dica: no Wokwi, ajuste o DHT22 para ~36.5 C (temperatura cutanea normal); o padrao de 24 C gera alerta de hipotermia
+[SENSOR] MPU6050 iniciado (acelerometro, faixa 4 g)
+[SENSOR] DHT22 iniciado; botao de batimento com interrupcao
+[SPIFFS] desativado por compilacao (USAR_SPIFFS 0); resiliencia via buffer em RAM
+[ONLINE] estado inicial definido pela chave Wi-Fi simulada
+[ONLINE] envio em tempo real: ts_s,temp_c,umid_pct,bpm,mov,alertas
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[ONLINE] 3,24.00,40.00,0,0,8
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[ONLINE] 8,24.00,40.00,0,0,8
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[ONLINE] 13,24.00,40.00,0,0,8
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[ONLINE] 18,24.00,40.00,0,0,8
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[ONLINE] 23,24.00,40.00,0,0,8
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[ONLINE] 28,24.00,40.00,0,0,8
+[BUFFER] pendentes=0/3000 armazenadas=0 sincronizadas=0 descartadas=0 batimentos=0 heap_livre=280652
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[ONLINE] 33,24.00,40.00,0,0,8
+[OFFLINE] conexao perdida em t=33 s; armazenando localmente
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 38,24.00,40.00,0,0,8 | armazenada (1/3000, mov=nao, |a|=1.00 g)
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 43,24.00,40.00,0,0,8 | armazenada (2/3000, mov=nao, |a|=1.00 g)
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 48,24.00,40.00,0,0,8 | armazenada (3/3000, mov=nao, |a|=1.00 g)
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 53,24.00,40.00,0,0,8 | armazenada (4/3000, mov=nao, |a|=1.00 g)
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 58,24.00,40.00,0,0,8 | armazenada (5/3000, mov=nao, |a|=1.00 g)
+[BUFFER] pendentes=5/3000 armazenadas=5 sincronizadas=0 descartadas=0 batimentos=0 heap_livre=280652
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 63,24.00,40.00,0,0,8 | armazenada (6/3000, mov=nao, |a|=1.00 g)
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 68,24.00,40.00,0,0,8 | armazenada (7/3000, mov=nao, |a|=1.00 g)
+[ALERTA] hipotermia (24.0 C < 35.0); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 73,24.00,40.00,0,0,8 | armazenada (8/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 78,36.50,40.00,0,0,0 | armazenada (9/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 83,36.50,40.00,0,0,0 | armazenada (10/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 88,36.50,40.00,0,0,0 | armazenada (11/3000, mov=nao, |a|=1.00 g)
+[BUFFER] pendentes=11/3000 armazenadas=11 sincronizadas=0 descartadas=0 batimentos=0 heap_livre=280652
+[OFFLINE] 93,36.50,40.00,0,0,0 | armazenada (12/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 98,36.50,40.00,0,0,0 | armazenada (13/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 103,36.50,40.00,80,0,0 | armazenada (14/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 108,36.50,40.00,80,0,0 | armazenada (15/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 113,36.50,40.00,0,0,0 | armazenada (16/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 118,36.50,40.00,0,0,0 | armazenada (17/3000, mov=nao, |a|=1.00 g)
+[BUFFER] pendentes=17/3000 armazenadas=17 sincronizadas=0 descartadas=0 batimentos=12 heap_livre=280652
+[OFFLINE] 123,36.50,40.00,0,0,0 | armazenada (18/3000, mov=nao, |a|=1.00 g)
+[ALERTA] taquicardia (150 bpm > 120); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 128,36.50,40.00,150,0,1 | armazenada (19/3000, mov=nao, |a|=1.00 g)
+[ALERTA] taquicardia (150 bpm > 120); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 133,36.50,40.00,150,0,1 | armazenada (20/3000, mov=nao, |a|=1.00 g)
+[ALERTA] taquicardia (150 bpm > 120); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 138,36.50,40.00,150,0,1 | armazenada (21/3000, mov=nao, |a|=1.00 g)
+[ALERTA] taquicardia (150 bpm > 120); (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 143,36.50,40.00,150,0,1 | armazenada (22/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 148,36.50,40.00,0,0,0 | armazenada (23/3000, mov=nao, |a|=1.00 g)
+[BUFFER] pendentes=23/3000 armazenadas=23 sincronizadas=0 descartadas=0 batimentos=42 heap_livre=280652
+[OFFLINE] 153,36.50,40.00,0,1,0 | armazenada (24/3000, mov=sim, |a|=1.28 g)
+[OFFLINE] 158,36.50,40.00,0,1,0 | armazenada (25/3000, mov=sim, |a|=1.00 g)
+[OFFLINE] 163,36.50,40.00,0,0,0 | armazenada (26/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 168,36.50,40.00,0,0,0 | armazenada (27/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 173,36.50,40.00,0,0,0 | armazenada (28/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 178,36.50,40.00,0,0,0 | armazenada (29/3000, mov=nao, |a|=1.00 g)
+[BUFFER] pendentes=29/3000 armazenadas=29 sincronizadas=0 descartadas=0 batimentos=42 heap_livre=280652
+[OFFLINE] 183,36.50,40.00,0,0,0 | armazenada (30/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 188,36.50,40.00,0,0,0 | armazenada (31/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 193,36.50,40.00,0,0,0 | armazenada (32/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 198,36.50,40.00,0,0,0 | armazenada (33/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 203,36.50,40.00,0,0,0 | armazenada (34/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 208,36.50,40.00,0,0,0 | armazenada (35/3000, mov=nao, |a|=1.00 g)
+[BUFFER] pendentes=35/3000 armazenadas=35 sincronizadas=0 descartadas=0 batimentos=42 heap_livre=280652
+[OFFLINE] 213,36.50,40.00,0,0,0 | armazenada (36/3000, mov=nao, |a|=1.00 g)
+[OFFLINE] 218,36.50,40.00,0,0,0 | armazenada (37/3000, mov=nao, |a|=1.00 g)
+[ALERTA] sem movimento ha 64 s; (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 223,36.50,40.00,0,0,16 | armazenada (38/3000, mov=nao, |a|=1.00 g)
+[ALERTA] sem movimento ha 69 s; (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 228,36.50,40.00,0,0,16 | armazenada (39/3000, mov=nao, |a|=1.00 g)
+[ALERTA] sem movimento ha 74 s; (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 233,36.50,40.00,0,0,16 | armazenada (40/3000, mov=nao, |a|=1.00 g)
+[ALERTA] sem movimento ha 79 s; (LED vermelho e buzzer acionados localmente)
+[OFFLINE] 238,36.50,40.00,0,0,16 | armazenada (41/3000, mov=nao, |a|=1.00 g)
+[BUFFER] pendentes=41/3000 armazenadas=41 sincronizadas=0 descartadas=0 batimentos=42 heap_livre=280652
+[ONLINE] conexao restabelecida em t=241 s; 41 amostras pendentes
+[SYNC] iniciando sincronizacao de 41 amostras pendentes (RAM)
+[SYNC] ts_s,temp_c,umid_pct,bpm,mov,alertas
+[SYNC] 38,24.00,40.00,0,0,8
+[SYNC] 43,24.00,40.00,0,0,8
+[SYNC] 48,24.00,40.00,0,0,8
+[SYNC] 53,24.00,40.00,0,0,8
+[SYNC] 58,24.00,40.00,0,0,8
+[SYNC] 63,24.00,40.00,0,0,8
+[SYNC] 68,24.00,40.00,0,0,8
+[SYNC] 73,24.00,40.00,0,0,8
+[SYNC] 78,36.50,40.00,0,0,0
+[SYNC] 83,36.50,40.00,0,0,0
+[SYNC] 88,36.50,40.00,0,0,0
+[SYNC] 93,36.50,40.00,0,0,0
+[SYNC] 98,36.50,40.00,0,0,0
+[SYNC] 103,36.50,40.00,80,0,0
+[SYNC] 108,36.50,40.00,80,0,0
+[SYNC] 113,36.50,40.00,0,0,0
+[SYNC] 118,36.50,40.00,0,0,0
+[SYNC] 123,36.50,40.00,0,0,0
+[SYNC] 128,36.50,40.00,150,0,1
+[SYNC] 133,36.50,40.00,150,0,1
+[SYNC] 138,36.50,40.00,150,0,1
+[SYNC] 143,36.50,40.00,150,0,1
+[SYNC] 148,36.50,40.00,0,0,0
+[SYNC] 153,36.50,40.00,0,1,0
+[SYNC] 158,36.50,40.00,0,1,0
+[SYNC] 163,36.50,40.00,0,0,0
+[SYNC] 168,36.50,40.00,0,0,0
+[SYNC] 173,36.50,40.00,0,0,0
+[SYNC] 178,36.50,40.00,0,0,0
+[SYNC] 183,36.50,40.00,0,0,0
+[SYNC] 188,36.50,40.00,0,0,0
+[SYNC] 193,36.50,40.00,0,0,0
+[SYNC] 198,36.50,40.00,0,0,0
+[SYNC] 203,36.50,40.00,0,0,0
+[SYNC] 208,36.50,40.00,0,0,0
+[SYNC] 213,36.50,40.00,0,0,0
+[SYNC] 218,36.50,40.00,0,0,0
+[SYNC] 223,36.50,40.00,0,0,16
+[SYNC] 228,36.50,40.00,0,0,16
+[SYNC] 233,36.50,40.00,0,0,16
+[SYNC] 238,36.50,40.00,0,0,16
+[SYNC] concluida: 41 enviadas, buffer limpo (total sincronizadas=41, descartadas=0)
+[ONLINE] envio em tempo real: ts_s,temp_c,umid_pct,bpm,mov,alertas
+[ALERTA] sem movimento ha 84 s; (LED vermelho e buzzer acionados localmente)
+[ONLINE] 243,36.50,40.00,0,0,16
+[ALERTA] sem movimento ha 89 s; (LED vermelho e buzzer acionados localmente)
+[ONLINE] 248,36.50,40.00,0,0,16
+[ALERTA] sem movimento ha 94 s; (LED vermelho e buzzer acionados localmente)
+[ONLINE] 253,36.50,40.00,0,0,16
+[ALERTA] sem movimento ha 100 s; (LED vermelho e buzzer acionados localmente)
+[ONLINE] 258,36.50,40.00,0,0,16
+[ALERTA] sem movimento ha 104 s; (LED vermelho e buzzer acionados localmente)
+[ONLINE] 263,36.50,40.00,0,0,16

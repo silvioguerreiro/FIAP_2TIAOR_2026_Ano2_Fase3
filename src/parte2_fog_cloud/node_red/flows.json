@@ -1,0 +1,920 @@
+[
+  {
+    "id": "cardioia_f3_tab",
+    "type": "tab",
+    "label": "CardioIA Fase 3 - Monitoramento (Fog/Cloud)",
+    "disabled": false,
+    "info": "Fluxo da Parte 2 da Fase 3 do CardioIA (Grupo 55). Recebe via MQTT as amostras do wearable simulado (ESP32 no Wokwi), normaliza, avalia os limites de alerta na camada Fog e alimenta o dashboard (Dashboard 2.0).",
+    "env": []
+  },
+  {
+    "id": "cfg_broker_cardioia",
+    "type": "mqtt-broker",
+    "name": "Broker MQTT (HiveMQ publico)",
+    "broker": "broker.hivemq.com",
+    "port": "1883",
+    "clientid": "cardioia-nodered-g55",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": 60,
+    "cleansession": true,
+    "autoUnsubscribe": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": "false",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closeRetain": "false",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": "false",
+    "willPayload": "",
+    "willMsg": {},
+    "userProps": "",
+    "sessionExpiry": ""
+  },
+  {
+    "id": "ui_base_cardioia",
+    "type": "ui-base",
+    "name": "CardioIA",
+    "path": "/dashboard",
+    "appIcon": "",
+    "includeClientData": true,
+    "acceptsClientConfig": [
+      "ui-notification",
+      "ui-control"
+    ],
+    "showPathInSidebar": false,
+    "headerContent": "page",
+    "navigationStyle": "default",
+    "titleBarStyle": "default",
+    "showReconnectNotification": true,
+    "notificationDisplayTime": 1,
+    "showDisconnectNotification": true,
+    "allowInstall": false
+  },
+  {
+    "id": "ui_theme_cardioia",
+    "type": "ui-theme",
+    "name": "Tema CardioIA",
+    "colors": {
+      "surface": "#ffffff",
+      "primary": "#c62828",
+      "bgPage": "#f4f5f7",
+      "groupBg": "#ffffff",
+      "groupOutline": "#d9d9e0"
+    },
+    "sizes": {
+      "density": "default",
+      "pagePadding": "12px",
+      "groupGap": "12px",
+      "groupBorderRadius": "4px",
+      "widgetGap": "12px"
+    }
+  },
+  {
+    "id": "ui_page_paciente01",
+    "type": "ui-page",
+    "name": "Paciente 01 - Monitoramento continuo",
+    "ui": "ui_base_cardioia",
+    "path": "/paciente01",
+    "icon": "heart-pulse",
+    "layout": "grid",
+    "theme": "ui_theme_cardioia",
+    "breakpoints": [
+      {
+        "name": "Default",
+        "px": 0,
+        "cols": 3
+      },
+      {
+        "name": "Tablet",
+        "px": 576,
+        "cols": 6
+      },
+      {
+        "name": "Small Desktop",
+        "px": 768,
+        "cols": 9
+      },
+      {
+        "name": "Desktop",
+        "px": 1024,
+        "cols": 12
+      }
+    ],
+    "tabs": [],
+    "order": 1,
+    "className": "",
+    "visible": "true",
+    "disabled": "false"
+  },
+  {
+    "id": "grp_estado",
+    "type": "ui-group",
+    "name": "Estado do dispositivo (Edge) e do enlace",
+    "page": "ui_page_paciente01",
+    "width": "12",
+    "height": "1",
+    "order": 1,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default",
+    "tab": ""
+  },
+  {
+    "id": "grp_alerta",
+    "type": "ui-group",
+    "name": "Alertas (limites avaliados no Fog e no dispositivo)",
+    "page": "ui_page_paciente01",
+    "width": "12",
+    "height": "1",
+    "order": 2,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default",
+    "tab": ""
+  },
+  {
+    "id": "grp_graficos",
+    "type": "ui-group",
+    "name": "Sinais vitais em tempo real",
+    "page": "ui_page_paciente01",
+    "width": "12",
+    "height": "1",
+    "order": 3,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default",
+    "tab": ""
+  },
+  {
+    "id": "grp_medidores",
+    "type": "ui-group",
+    "name": "Medidores",
+    "page": "ui_page_paciente01",
+    "width": "12",
+    "height": "1",
+    "order": 4,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default",
+    "tab": ""
+  },
+  {
+    "id": "grp_tabela",
+    "type": "ui-group",
+    "name": "Ultimas amostras recebidas",
+    "page": "ui_page_paciente01",
+    "width": "12",
+    "height": "1",
+    "order": 5,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default",
+    "tab": ""
+  },
+  {
+    "id": "cmt_entrada",
+    "type": "comment",
+    "z": "cardioia_f3_tab",
+    "name": "1. Entrada: assinaturas MQTT (JSON publicado pelo ESP32)",
+    "info": "Topicos: cardioia/grupo55/paciente01/sinais (uma mensagem por amostra), /alertas (retida) e /estado (retida, com testamento).",
+    "x": 250,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "mqtt_in_sinais",
+    "type": "mqtt in",
+    "z": "cardioia_f3_tab",
+    "name": "MQTT sinais",
+    "topic": "cardioia/grupo55/paciente01/sinais",
+    "qos": "0",
+    "datatype": "json",
+    "broker": "cfg_broker_cardioia",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 160,
+    "y": 180,
+    "wires": [
+      [
+        "fn_normalizar",
+        "dbg_sinais"
+      ]
+    ]
+  },
+  {
+    "id": "mqtt_in_alertas",
+    "type": "mqtt in",
+    "z": "cardioia_f3_tab",
+    "name": "MQTT alertas",
+    "topic": "cardioia/grupo55/paciente01/alertas",
+    "qos": "0",
+    "datatype": "json",
+    "broker": "cfg_broker_cardioia",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 160,
+    "y": 700,
+    "wires": [
+      [
+        "fn_alerta_disp",
+        "dbg_alertas"
+      ]
+    ]
+  },
+  {
+    "id": "mqtt_in_estado",
+    "type": "mqtt in",
+    "z": "cardioia_f3_tab",
+    "name": "MQTT estado",
+    "topic": "cardioia/grupo55/paciente01/estado",
+    "qos": "0",
+    "datatype": "json",
+    "broker": "cfg_broker_cardioia",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 160,
+    "y": 820,
+    "wires": [
+      [
+        "fn_estado",
+        "dbg_estado"
+      ]
+    ]
+  },
+  {
+    "id": "dbg_sinais",
+    "type": "debug",
+    "z": "cardioia_f3_tab",
+    "name": "debug sinais",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 450,
+    "y": 120,
+    "wires": []
+  },
+  {
+    "id": "dbg_alertas",
+    "type": "debug",
+    "z": "cardioia_f3_tab",
+    "name": "debug alertas",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 450,
+    "y": 760,
+    "wires": []
+  },
+  {
+    "id": "dbg_estado",
+    "type": "debug",
+    "z": "cardioia_f3_tab",
+    "name": "debug estado",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 450,
+    "y": 880,
+    "wires": []
+  },
+  {
+    "id": "cmt_fog",
+    "type": "comment",
+    "z": "cardioia_f3_tab",
+    "name": "2. Processamento na camada Fog: normalizacao, limites e historico",
+    "info": "Os limites ficam em flow.limites (definidos no deploy). A funcao de avaliacao combina a avaliacao local do dispositivo (bitmask) com a avaliacao do Fog.",
+    "x": 720,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "inj_limites",
+    "type": "inject",
+    "z": "cardioia_f3_tab",
+    "name": "no deploy",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 160,
+    "y": 460,
+    "wires": [
+      [
+        "fn_limites"
+      ]
+    ]
+  },
+  {
+    "id": "fn_limites",
+    "type": "function",
+    "z": "cardioia_f3_tab",
+    "name": "Definir limites de alerta",
+    "func": "// Limites de alerta definidos pelo grupo (camada Fog). Justificativa no relatorio da Parte 2.\n// Ausencia de movimento: 600 s (10 min) em producao. O dispositivo (Edge) usa 60 s no modo\n// de demonstracao e informa o alerta pela mascara; o Fog aceita os dois.\nconst limites = {\n    bpmMax: 120,       // acima: taquicardia\n    bpmMin: 50,        // abaixo (com bpm > 0): bradicardia\n    tempMax: 38.0,     // acima: febre\n    tempMin: 35.0,     // abaixo: hipotermia\n    semMovimentoS: 600 // segundos sem movimento\n};\nflow.set('limites', limites);\nflow.set('historico', []);\nflow.set('alertasAtivos', []);\nnode.status({ fill: 'blue', shape: 'ring', text: 'limites definidos' });\nmsg.payload = limites;\nreturn msg;\n",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 470,
+    "y": 460,
+    "wires": [
+      [
+        "dbg_limites"
+      ]
+    ]
+  },
+  {
+    "id": "dbg_limites",
+    "type": "debug",
+    "z": "cardioia_f3_tab",
+    "name": "debug limites",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 720,
+    "y": 460,
+    "wires": []
+  },
+  {
+    "id": "fn_normalizar",
+    "type": "function",
+    "z": "cardioia_f3_tab",
+    "name": "Normalizar amostra",
+    "func": "// Normaliza a amostra publicada pelo ESP32 em <prefixo>/sinais e distribui\n// para graficos, medidores, tabela e avaliacao de limites.\n// Saidas: 1 grafico bpm | 2 grafico temperatura | 3 medidor temp | 4 medidor umidade | 5 medidor bpm | 6 tabela | 7 avaliacao\nconst p = msg.payload;\nif (!p || typeof p !== 'object') { node.warn('payload invalido: ' + JSON.stringify(msg.payload)); return null; }\nconst agoraMs = Date.now();\n// Carimbo de tempo do dispositivo (epoca Unix via NTP). Se for relativo (sem NTP), usa a hora de chegada.\nconst tsMs = (typeof p.ts === 'number' && !p.tsrel && p.ts > 1700000000) ? p.ts * 1000 : agoraMs;\nconst amostra = {\n    disp: p.disp || 'desconhecido',\n    seq: Number(p.seq) || 0,\n    ts: tsMs,\n    tsrel: !!p.tsrel,\n    temp: Number(p.temp),\n    umid: Number(p.umid),\n    bpm: Number(p.bpm) || 0,\n    mov: Number(p.mov) === 1,\n    mascara: Number(p.alertas) || 0,\n    origem: p.origem || 'rt',\n    recebidoEm: agoraMs\n};\nflow.set('ultimaAmostra', amostra);\nnode.status({ fill: amostra.origem === 'sync' ? 'yellow' : 'green', shape: 'dot', text: 'seq ' + amostra.seq + ' (' + amostra.origem + ') bpm ' + amostra.bpm + ' temp ' + amostra.temp.toFixed(1) });\n\n// Historico das ultimas 12 amostras para a tabela (mais recente primeiro)\nconst hist = flow.get('historico') || [];\nhist.unshift({\n    hora: new Date(tsMs).toLocaleTimeString('pt-BR'),\n    seq: amostra.seq,\n    bpm: amostra.bpm,\n    temp_c: amostra.temp.toFixed(1),\n    umid_pct: amostra.umid.toFixed(0),\n    movimento: amostra.mov ? 'sim' : 'nao',\n    alertas_disp: amostra.mascara,\n    origem: amostra.origem\n});\nwhile (hist.length > 12) hist.pop();\nflow.set('historico', hist);\n\nconst mBpm   = { payload: amostra.bpm,  topic: 'Frequencia cardiaca', timestamp: tsMs };\nconst mTemp  = { payload: amostra.temp, topic: 'Temperatura', timestamp: tsMs };\nconst mGTemp = { payload: amostra.temp };\nconst mGUmid = { payload: amostra.umid };\nconst mGBpm  = { payload: amostra.bpm };\nconst mTab   = { payload: hist };\nconst mAval  = { payload: amostra };\nreturn [mBpm, mTemp, mGTemp, mGUmid, mGBpm, mTab, mAval];\n",
+    "outputs": 7,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 480,
+    "y": 240,
+    "wires": [
+      [
+        "ui_chart_bpm"
+      ],
+      [
+        "ui_chart_temp"
+      ],
+      [
+        "ui_gauge_temp"
+      ],
+      [
+        "ui_gauge_umid"
+      ],
+      [
+        "ui_gauge_bpm"
+      ],
+      [
+        "ui_tabela"
+      ],
+      [
+        "fn_avaliar"
+      ]
+    ]
+  },
+  {
+    "id": "fn_avaliar",
+    "type": "function",
+    "z": "cardioia_f3_tab",
+    "name": "Avaliar limites (Fog)",
+    "func": "// Avaliacao dos limites na camada Fog (Node-RED) combinada com a avaliacao feita\n// no dispositivo (Edge, bitmask em \"alertas\"). Saidas: 1 painel | 2 notificacao | 3 texto\nconst LIM = flow.get('limites') || { bpmMax: 120, bpmMin: 50, tempMax: 38.0, tempMin: 35.0, semMovimentoS: 600 };\nconst a = msg.payload;\nconst tipos = [];\nif (a.bpm > LIM.bpmMax) tipos.push('taquicardia');\nif (a.bpm > 0 && a.bpm < LIM.bpmMin) tipos.push('bradicardia');\nif (!isNaN(a.temp) && a.temp > LIM.tempMax) tipos.push('febre');\nif (!isNaN(a.temp) && a.temp < LIM.tempMin) tipos.push('hipotermia');\n\n// Ausencia de movimento avaliada no Fog pelo instante do ultimo movimento recebido\nlet ultimoMov = flow.get('ultimoMovimentoMs') || 0;\nif (a.mov) { ultimoMov = a.ts; flow.set('ultimoMovimentoMs', ultimoMov); }\nif (ultimoMov && (a.ts - ultimoMov) > LIM.semMovimentoS * 1000) tipos.push('sem_movimento');\n\n// Alertas ja avaliados no dispositivo (bits: 1 taquicardia, 2 bradicardia, 4 febre, 8 hipotermia, 16 sem_movimento)\nconst nomes = ['taquicardia', 'bradicardia', 'febre', 'hipotermia', 'sem_movimento'];\nnomes.forEach((n, i) => { if ((a.mascara & (1 << i)) && !tipos.includes(n)) tipos.push(n); });\n\nconst ativo = tipos.length > 0;\nconst hora = new Date(a.ts).toLocaleTimeString('pt-BR');\nconst resumo = 'bpm ' + a.bpm + ' | ' + a.temp.toFixed(1) + ' C | umid ' + a.umid.toFixed(0) + '% | mov ' + (a.mov ? 'sim' : 'nao');\nconst texto = ativo ? (tipos.join(', ') + ' | ' + resumo) : resumo;\nconst cor = ativo ? '#c62828' : '#2e7d32';\nnode.status({ fill: ativo ? 'red' : 'green', shape: 'dot', text: ativo ? tipos.join(', ') : 'normal' });\n\nconst painel = { payload: { ativo, texto, cor, tipos, hora, origem: a.origem, seq: a.seq } };\n\n// Notificacao apenas quando surge um tipo novo de alerta em tempo real (evita repetir a cada 5 s)\nconst anteriores = flow.get('alertasAtivos') || [];\nconst novos = tipos.filter(t => !anteriores.includes(t));\nflow.set('alertasAtivos', tipos);\nlet notif = null;\nif (novos.length && a.origem === 'rt') {\n    notif = { payload: 'Paciente 01: ' + novos.join(', ') + ' (bpm ' + a.bpm + ', ' + a.temp.toFixed(1) + ' C) as ' + hora };\n}\nconst txt = { payload: ativo ? (hora + ': ' + tipos.join(', ')) : 'nenhum alerta ativo (' + hora + ')' };\nreturn [painel, notif, txt];\n",
+    "outputs": 3,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 740,
+    "y": 580,
+    "wires": [
+      [
+        "ui_painel_alerta"
+      ],
+      [
+        "ui_notificacao"
+      ],
+      [
+        "ui_texto_alerta"
+      ]
+    ]
+  },
+  {
+    "id": "fn_estado",
+    "type": "function",
+    "z": "cardioia_f3_tab",
+    "name": "Estado do dispositivo",
+    "func": "// Estado do dispositivo publicado em <prefixo>/estado (mensagem retida) e testamento (LWT).\nconst e = msg.payload || {};\nconst estado = String(e.estado || 'desconhecido');\nconst cores = { online: '#2e7d32', sincronizando: '#f9a825', offline: '#757575', offline_inesperado: '#c62828' };\nconst hora = e.ts ? new Date(e.ts * 1000).toLocaleTimeString('pt-BR') : new Date().toLocaleTimeString('pt-BR');\nlet texto = estado.toUpperCase() + ' | ' + hora;\nif (e.pendentes !== undefined) texto += ' | pendentes ' + e.pendentes + '/' + e.capacidade;\nif (e.publicadas !== undefined) texto += ' | publicadas ' + e.publicadas;\nif (e.descartadas !== undefined) texto += ' | descartadas ' + e.descartadas;\nif (e.rssi !== undefined) texto += ' | RSSI ' + e.rssi + ' dBm';\nif (e.heap !== undefined) texto += ' | heap livre ' + Math.round(e.heap / 1024) + ' KB';\nflow.set('estadoDispositivo', estado);\nnode.status({ fill: estado === 'online' ? 'green' : (estado === 'sincronizando' ? 'yellow' : 'red'), shape: 'dot', text: estado });\nreturn { payload: { estado, texto, cor: cores[estado] || '#757575', disp: e.disp || '' } };\n",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 480,
+    "y": 820,
+    "wires": [
+      [
+        "ui_painel_estado"
+      ]
+    ]
+  },
+  {
+    "id": "fn_alerta_disp",
+    "type": "function",
+    "z": "cardioia_f3_tab",
+    "name": "Alerta publicado pelo dispositivo",
+    "func": "// Ultimo estado de alerta publicado pelo proprio dispositivo (retido em <prefixo>/alertas).\nconst p = msg.payload || {};\nconst hora = p.ts ? new Date(p.ts * 1000).toLocaleTimeString('pt-BR') : '';\nif (p.ativo) {\n    msg.payload = hora + ': ' + (p.tipos || '').split(',').join(', ') + ' (bpm ' + p.bpm + ', ' + Number(p.temp).toFixed(1) + ' C, seq ' + p.seq + ')';\n} else {\n    msg.payload = 'sem alerta no dispositivo' + (hora ? ' (' + hora + ')' : '');\n}\nreturn msg;\n",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 500,
+    "y": 700,
+    "wires": [
+      [
+        "ui_texto_alerta_disp"
+      ]
+    ]
+  },
+  {
+    "id": "cmt_dash",
+    "type": "comment",
+    "z": "cardioia_f3_tab",
+    "name": "3. Visualizacao: Dashboard 2.0 (@flowfuse/node-red-dashboard)",
+    "info": "Pagina /dashboard/paciente01: graficos de bpm e temperatura, medidores, painel de alerta com cor, notificacao e tabela.",
+    "x": 1180,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "ui_chart_bpm",
+    "type": "ui-chart",
+    "z": "cardioia_f3_tab",
+    "group": "grp_graficos",
+    "name": "Grafico bpm",
+    "label": "Frequencia cardiaca (bpm)",
+    "order": 1,
+    "chartType": "line",
+    "category": "topic",
+    "categoryType": "msg",
+    "xAxisLabel": "hora",
+    "xAxisProperty": "timestamp",
+    "xAxisPropertyType": "msg",
+    "xAxisType": "time",
+    "xAxisFormat": "",
+    "xAxisFormatType": "auto",
+    "xmin": "",
+    "xmax": "",
+    "yAxisLabel": "Frequencia cardiaca (bpm)",
+    "yAxisProperty": "payload",
+    "yAxisPropertyType": "msg",
+    "ymin": "0",
+    "ymax": "200",
+    "bins": 10,
+    "action": "append",
+    "stackSeries": false,
+    "pointShape": "circle",
+    "pointRadius": 3,
+    "showLegend": true,
+    "removeOlder": "30",
+    "removeOlderUnit": "60",
+    "removeOlderPoints": "",
+    "colors": [
+      "#c62828",
+      "#1e88e5",
+      "#FF7F0E",
+      "#2CA02C",
+      "#A347E1",
+      "#D62728",
+      "#FF9896",
+      "#9467BD",
+      "#C5B0D5"
+    ],
+    "textColor": [
+      "#666666"
+    ],
+    "textColorDefault": true,
+    "gridColor": [
+      "#e5e5e5"
+    ],
+    "gridColorDefault": true,
+    "width": "6",
+    "height": "7",
+    "className": "",
+    "interpolation": "linear",
+    "x": 1100,
+    "y": 140,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ui_chart_temp",
+    "type": "ui-chart",
+    "z": "cardioia_f3_tab",
+    "group": "grp_graficos",
+    "name": "Grafico temperatura",
+    "label": "Temperatura (C)",
+    "order": 2,
+    "chartType": "line",
+    "category": "topic",
+    "categoryType": "msg",
+    "xAxisLabel": "hora",
+    "xAxisProperty": "timestamp",
+    "xAxisPropertyType": "msg",
+    "xAxisType": "time",
+    "xAxisFormat": "",
+    "xAxisFormatType": "auto",
+    "xmin": "",
+    "xmax": "",
+    "yAxisLabel": "Temperatura (C)",
+    "yAxisProperty": "payload",
+    "yAxisPropertyType": "msg",
+    "ymin": "20",
+    "ymax": "42",
+    "bins": 10,
+    "action": "append",
+    "stackSeries": false,
+    "pointShape": "circle",
+    "pointRadius": 3,
+    "showLegend": true,
+    "removeOlder": "30",
+    "removeOlderUnit": "60",
+    "removeOlderPoints": "",
+    "colors": [
+      "#c62828",
+      "#1e88e5",
+      "#FF7F0E",
+      "#2CA02C",
+      "#A347E1",
+      "#D62728",
+      "#FF9896",
+      "#9467BD",
+      "#C5B0D5"
+    ],
+    "textColor": [
+      "#666666"
+    ],
+    "textColorDefault": true,
+    "gridColor": [
+      "#e5e5e5"
+    ],
+    "gridColorDefault": true,
+    "width": "6",
+    "height": "7",
+    "className": "",
+    "interpolation": "linear",
+    "x": 1100,
+    "y": 200,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ui_gauge_temp",
+    "type": "ui-gauge",
+    "z": "cardioia_f3_tab",
+    "name": "Medidor temperatura",
+    "group": "grp_medidores",
+    "order": 1,
+    "value": "payload",
+    "valueType": "msg",
+    "width": "4",
+    "height": "4",
+    "gtype": "gauge-half",
+    "gstyle": "needle",
+    "title": "Temperatura",
+    "alwaysShowTitle": false,
+    "floatingTitlePosition": "top-left",
+    "units": "C",
+    "icon": "",
+    "prefix": "",
+    "suffix": "",
+    "segments": [
+      {
+        "from": 30,
+        "color": "#1e88e5"
+      },
+      {
+        "from": 35,
+        "color": "#43a047"
+      },
+      {
+        "from": 38,
+        "color": "#e53935"
+      }
+    ],
+    "min": 30,
+    "max": 42,
+    "sizeThickness": 16,
+    "sizeGap": 4,
+    "sizeKeyThickness": 8,
+    "styleRounded": true,
+    "styleGlow": false,
+    "className": "",
+    "x": 1100,
+    "y": 260,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ui_gauge_umid",
+    "type": "ui-gauge",
+    "z": "cardioia_f3_tab",
+    "name": "Medidor umidade",
+    "group": "grp_medidores",
+    "order": 2,
+    "value": "payload",
+    "valueType": "msg",
+    "width": "4",
+    "height": "4",
+    "gtype": "gauge-half",
+    "gstyle": "needle",
+    "title": "Umidade",
+    "alwaysShowTitle": false,
+    "floatingTitlePosition": "top-left",
+    "units": "%",
+    "icon": "",
+    "prefix": "",
+    "suffix": "",
+    "segments": [
+      {
+        "from": 0,
+        "color": "#90caf9"
+      },
+      {
+        "from": 30,
+        "color": "#43a047"
+      },
+      {
+        "from": 70,
+        "color": "#fb8c00"
+      }
+    ],
+    "min": 0,
+    "max": 100,
+    "sizeThickness": 16,
+    "sizeGap": 4,
+    "sizeKeyThickness": 8,
+    "styleRounded": true,
+    "styleGlow": false,
+    "className": "",
+    "x": 1100,
+    "y": 320,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ui_gauge_bpm",
+    "type": "ui-gauge",
+    "z": "cardioia_f3_tab",
+    "name": "Medidor bpm",
+    "group": "grp_medidores",
+    "order": 3,
+    "value": "payload",
+    "valueType": "msg",
+    "width": "4",
+    "height": "4",
+    "gtype": "gauge-half",
+    "gstyle": "needle",
+    "title": "Frequencia cardiaca",
+    "alwaysShowTitle": false,
+    "floatingTitlePosition": "top-left",
+    "units": "bpm",
+    "icon": "",
+    "prefix": "",
+    "suffix": "",
+    "segments": [
+      {
+        "from": 0,
+        "color": "#e53935"
+      },
+      {
+        "from": 50,
+        "color": "#43a047"
+      },
+      {
+        "from": 120,
+        "color": "#e53935"
+      }
+    ],
+    "min": 0,
+    "max": 200,
+    "sizeThickness": 16,
+    "sizeGap": 4,
+    "sizeKeyThickness": 8,
+    "styleRounded": true,
+    "styleGlow": false,
+    "className": "",
+    "x": 1100,
+    "y": 380,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ui_tabela",
+    "type": "ui-table",
+    "z": "cardioia_f3_tab",
+    "group": "grp_tabela",
+    "name": "Tabela ultimas amostras",
+    "label": "Ultimas 12 amostras (mais recente primeiro)",
+    "order": 1,
+    "width": "12",
+    "height": "8",
+    "maxrows": 12,
+    "passthru": false,
+    "autocols": true,
+    "showSearch": false,
+    "deselect": true,
+    "selectionType": "none",
+    "columns": [],
+    "mobileBreakpoint": "sm",
+    "mobileBreakpointType": "defaults",
+    "action": "replace",
+    "className": "",
+    "x": 1100,
+    "y": 440,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ui_painel_alerta",
+    "type": "ui-template",
+    "z": "cardioia_f3_tab",
+    "group": "grp_alerta",
+    "page": "",
+    "ui": "",
+    "name": "Painel de alerta (cor)",
+    "order": 1,
+    "width": "12",
+    "height": "2",
+    "head": "",
+    "format": "<template>\n    <div class=\"cardioia-painel\" :style=\"{ background: (msg.payload && msg.payload.cor) || '#9e9e9e' }\">\n        <div class=\"titulo\">{{ msg.payload && msg.payload.ativo ? 'ALERTA ATIVO' : 'SITUACAO NORMAL' }}</div>\n        <div class=\"texto\">{{ (msg.payload && msg.payload.texto) || 'aguardando dados do dispositivo...' }}</div>\n        <div class=\"rodape\">\n            atualizado {{ msg.payload && msg.payload.hora }} | amostra {{ msg.payload && msg.payload.seq }}\n            <span v-if=\"msg.payload && msg.payload.origem === 'sync'\"> | sincronizada do buffer do dispositivo</span>\n        </div>\n    </div>\n</template>\n<style>\n.cardioia-painel { color: #fff; padding: 14px 18px; border-radius: 6px; width: 100%; }\n.cardioia-painel .titulo { font-size: 1rem; font-weight: 700; letter-spacing: .06em; }\n.cardioia-painel .texto { font-size: 1.35rem; margin-top: 4px; }\n.cardioia-painel .rodape { font-size: .85rem; opacity: .9; margin-top: 6px; }\n</style>\n",
+    "storeOutMessages": true,
+    "passthru": true,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "className": "",
+    "x": 1100,
+    "y": 540,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ui_notificacao",
+    "type": "ui-notification",
+    "z": "cardioia_f3_tab",
+    "ui": "ui_base_cardioia",
+    "name": "Notificacao de alerta",
+    "position": "top right",
+    "colorDefault": false,
+    "color": "#c62828",
+    "displayTime": "8",
+    "showCountdown": true,
+    "outputs": 1,
+    "allowDismiss": true,
+    "dismissText": "Fechar",
+    "allowConfirm": false,
+    "confirmText": "Confirmar",
+    "raw": false,
+    "className": "",
+    "x": 1100,
+    "y": 600,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "ui_texto_alerta",
+    "type": "ui-text",
+    "z": "cardioia_f3_tab",
+    "group": "grp_alerta",
+    "order": 2,
+    "width": "6",
+    "height": "1",
+    "name": "Texto ultimo alerta (Fog)",
+    "label": "Avaliacao Fog",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "style": false,
+    "font": "",
+    "fontSize": 16,
+    "color": "#717171",
+    "wrapText": true,
+    "className": "",
+    "value": "payload",
+    "valueType": "msg",
+    "x": 1100,
+    "y": 660,
+    "wires": []
+  },
+  {
+    "id": "ui_texto_alerta_disp",
+    "type": "ui-text",
+    "z": "cardioia_f3_tab",
+    "group": "grp_alerta",
+    "order": 3,
+    "width": "6",
+    "height": "1",
+    "name": "Texto alerta do dispositivo",
+    "label": "Avaliacao no dispositivo (Edge)",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "style": false,
+    "font": "",
+    "fontSize": 16,
+    "color": "#717171",
+    "wrapText": true,
+    "className": "",
+    "value": "payload",
+    "valueType": "msg",
+    "x": 1100,
+    "y": 720,
+    "wires": []
+  },
+  {
+    "id": "ui_painel_estado",
+    "type": "ui-template",
+    "z": "cardioia_f3_tab",
+    "group": "grp_estado",
+    "page": "",
+    "ui": "",
+    "name": "Painel de estado",
+    "order": 1,
+    "width": "12",
+    "height": "1",
+    "head": "",
+    "format": "<template>\n    <div class=\"cardioia-estado\" :style=\"{ borderLeft: '10px solid ' + ((msg.payload && msg.payload.cor) || '#9e9e9e') }\">\n        <span class=\"bolinha\" :style=\"{ background: (msg.payload && msg.payload.cor) || '#9e9e9e' }\"></span>\n        <span class=\"texto\">{{ (msg.payload && msg.payload.texto) || 'sem estado recebido do dispositivo' }}</span>\n        <span class=\"disp\" v-if=\"msg.payload && msg.payload.disp\"> | {{ msg.payload.disp }}</span>\n    </div>\n</template>\n<style>\n.cardioia-estado { padding: 10px 14px; border-radius: 6px; background: #f5f5f5; width: 100%; font-size: 1rem; }\n.cardioia-estado .bolinha { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 10px; vertical-align: middle; }\n.cardioia-estado .disp { color: #616161; }\n</style>\n",
+    "storeOutMessages": true,
+    "passthru": true,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "className": "",
+    "x": 1100,
+    "y": 820,
+    "wires": [
+      []
+    ]
+  }
+]

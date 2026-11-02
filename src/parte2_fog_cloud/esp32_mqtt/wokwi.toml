@@ -1,0 +1,5 @@
+# Configuracao da extensao Wokwi para VS Code (CardioIA Fase 3, Parte 2)
+[wokwi]
+version = 1
+elf = ".pio/build/esp32dev/firmware.elf"
+firmware = ".pio/build/esp32dev/firmware.bin"

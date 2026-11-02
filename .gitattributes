@@ -1,0 +1,6 @@
+# Normalizacao de fim de linha
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.docx binary
+*.tiff binary

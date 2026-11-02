@@ -1,0 +1,3 @@
+# Dependencias Python dos scripts auxiliares (figuras dos relatorios).
+# O gerador do fluxo Node-RED (scripts/gerar_flows_node_red.py) usa apenas a biblioteca padrao.
+matplotlib==3.11.2

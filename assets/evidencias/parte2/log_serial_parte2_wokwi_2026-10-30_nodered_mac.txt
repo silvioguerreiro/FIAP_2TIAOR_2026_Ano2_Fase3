@@ -1,0 +1,160 @@
+Monitor serial do Wokwi, projeto da Parte 2 (https://wokwi.com/projects/479362979389911041), 30/10/2026, 23h07 a 23h20 (horario de Cuiaba).
+Sessao de evidencias com o Node-RED rodando no Mac do aluno (127.0.0.1:1880), assinando o broker publico broker.hivemq.com:1883.
+As capturas p2_10 a p2_15 desta pasta foram feitas durante esta execucao (p2_10 a p2_12 na execucao imediatamente anterior, encerrada por reinicio da simulacao apos a demonstracao de 62 amostras armazenadas offline; ver observacao ao final).
+Trechos repetitivos foram resumidos entre parenteses.
+
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1156
+load:0x40078000,len:11456
+ho 0 tail 12 room 4
+load:0x40080400,len:2972
+entry 0x400805dc
+
+[BOOT] CardioIA Fase 3, Parte 2 (Fog/Cloud): wearable cardiaco com MQTT
+[BOOT] amostragem=5000 ms, buffer=3000 amostras x 20 bytes = 60000 bytes
+[BOOT] limites: bpm>120, bpm<50, temp>38.0, temp<35.0, sem movimento>60 s
+[BOOT] dica: no Wokwi, ajuste o DHT22 para ~36.5 C (temperatura cutanea normal); 24 C gera alerta de hipotermia
+[BOOT] topicos: cardioia/grupo55/paciente01/sinais | cardioia/grupo55/paciente01/alertas | cardioia/grupo55/paciente01/estado
+[SENSOR] MPU6050 iniciado
+[BOOT] heap livre=220420 bytes
+[BOOT] chave ligada: iniciando conexao
+[WIFI] conectando a "Wokwi-GUEST" (canal 6)...
+[ALERTA] febre (bpm=0, temp=38.6 C); LED vermelho e buzzer acionados localmente
+[OFFLINE] seq=1 ts=4 temp=38.60 umid=40.0 bpm=0 mov=0 alertas=4 | armazenada (1/3000)
+[WIFI] conectado, IP 10.10.0.2, RSSI -96 dBm; NTP solicitado
+[MQTT] conectando a broker.hivemq.com:1883 (TLS=0) como cardioia-g55-p01...
+[ONLINE] conectado ao broker em t=5 s; 1 amostras pendentes
+[SYNC] iniciando sincronizacao de 1 amostras pendentes via MQTT
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"sincronizando","pendentes":1,"capacidade":3000,"descartadas":0,"publicadas":0,"ts":5,"heap":165592,"rssi":-84}
+[SYNC] concluida: 1 de 1 enviadas; pendentes=0 (total sincronizadas=1)
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":2,"ts":5,"heap":162180,"rssi":-84}
+[ALERTA] febre (bpm=0, temp=38.6 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":2,"ts":9,"tsrel":1,"temp":38.60,"umid":40.0,"bpm":0,"mov":0,"alertas":4,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":9,"ativo":1,"mascara":4,"tipos":"febre","bpm":0,"temp":38.60,"seq":2}
+[NTP] relogio sincronizado: 1793416063 (epoca Unix)
+[ALERTA] febre (bpm=0, temp=38.6 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":3,"ts":1793416067,"tsrel":0,"temp":38.60,"umid":40.0,"bpm":0,"mov":0,"alertas":4,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793416067,"ativo":1,"mascara":4,"tipos":"febre","bpm":0,"temp":38.60,"seq":3}
+(amostras 4 a 11: febre a 38,6 C, uma publicacao em /sinais e uma em /alertas a cada 5 s; estado "online" retido a cada 30 s)
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":15,"ts":1793416089,"heap":163880,"rssi":-92}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":11,"ts":1793416107,"tsrel":0,"temp":38.60,"umid":40.0,"bpm":0,"mov":0,"alertas":4,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793416107,"ativo":1,"mascara":4,"tipos":"febre","bpm":0,"temp":38.60,"seq":11}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":12,"ts":1793416112,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":75,"mov":0,"alertas":0,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793416112,"ativo":0,"mascara":0,"tipos":"","bpm":75,"temp":36.50,"seq":12}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":13,"ts":1793416117,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":75,"mov":0,"alertas":0,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":27,"ts":1793416119,"heap":165580,"rssi":-77}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":14,"ts":1793416122,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":75,"mov":0,"alertas":0,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"offline","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":29,"ts":1793416124,"heap":165580,"rssi":-91}
+[OFFLINE] enlace desligado pela chave em t=71 s; armazenando localmente
+[OFFLINE] seq=15 ts=1793416127 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (1/3000)
+[OFFLINE] seq=16 ts=1793416132 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (2/3000)
+[OFFLINE] seq=17 ts=1793416137 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (3/3000)
+[OFFLINE] seq=18 ts=1793416142 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (4/3000)
+[OFFLINE] seq=19 ts=1793416147 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (5/3000)
+[OFFLINE] seq=20 ts=1793416152 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (6/3000)
+[OFFLINE] seq=21 ts=1793416157 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (7/3000)
+[OFFLINE] seq=22 ts=1793416162 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (8/3000)
+[OFFLINE] seq=23 ts=1793416167 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (9/3000)
+[OFFLINE] seq=24 ts=1793416172 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (10/3000)
+[OFFLINE] seq=25 ts=1793416177 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (11/3000)
+[OFFLINE] seq=26 ts=1793416182 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (12/3000)
+[OFFLINE] seq=27 ts=1793416187 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (13/3000)
+[WIFI] conectando a "Wokwi-GUEST" (canal 6)...
+[OFFLINE] seq=28 ts=1793416192 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (14/3000)
+[MQTT] conectando a broker.hivemq.com:1883 (TLS=0) como cardioia-g55-p01...
+[ONLINE] conectado ao broker em t=140 s; 14 amostras pendentes
+[SYNC] iniciando sincronizacao de 14 amostras pendentes via MQTT
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"sincronizando","pendentes":14,"capacidade":3000,"descartadas":0,"publicadas":30,"ts":1793416194,"heap":165588,"rssi":-82}
+[SYNC] 10/14 enviadas (seq 24)
+[SYNC] concluida: 14 de 14 enviadas; pendentes=0 (total sincronizadas=15)
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":45,"ts":1793416194,"heap":162188,"rssi":-84}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":29,"ts":1793416197,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":75,"mov":0,"alertas":0,"origem":"rt"}
+(amostras 30 a 53: 75 bpm, 36,5 C, sem alertas, publicadas em tempo real a cada 5 s; estado "online" a cada 30 s)
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":53,"ts":1793416317,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":75,"mov":0,"alertas":0,"origem":"rt"}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":54,"ts":1793416322,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":0,"mov":1,"alertas":0,"origem":"rt"}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":55,"ts":1793416327,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":0,"mov":1,"alertas":0,"origem":"rt"}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":56,"ts":1793416332,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":0,"mov":0,"alertas":0,"origem":"rt"}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":57,"ts":1793416337,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":0,"mov":0,"alertas":0,"origem":"rt"}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":58,"ts":1793416342,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":0,"mov":0,"alertas":0,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":80,"ts":1793416344,"heap":165620,"rssi":-93}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":59,"ts":1793416347,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":0,"mov":1,"alertas":0,"origem":"rt"}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":60,"ts":1793416352,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":0,"mov":1,"alertas":0,"origem":"rt"}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":61,"ts":1793416357,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":0,"mov":0,"alertas":0,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"offline","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":84,"ts":1793416361,"heap":165620,"rssi":-78}
+[OFFLINE] enlace desligado pela chave em t=307 s; armazenando localmente
+[OFFLINE] seq=62 ts=1793416362 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (1/3000)
+[OFFLINE] seq=63 ts=1793416367 temp=36.50 umid=40.0 bpm=0 mov=1 alertas=0 | armazenada (2/3000)
+[OFFLINE] seq=64 ts=1793416372 temp=36.50 umid=40.0 bpm=0 mov=1 alertas=0 | armazenada (3/3000)
+[OFFLINE] seq=65 ts=1793416377 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (4/3000)
+[OFFLINE] seq=66 ts=1793416382 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (5/3000)
+[OFFLINE] seq=67 ts=1793416387 temp=36.50 umid=40.0 bpm=0 mov=1 alertas=0 | armazenada (6/3000)
+[OFFLINE] seq=68 ts=1793416392 temp=36.50 umid=40.0 bpm=0 mov=1 alertas=0 | armazenada (7/3000)
+[OFFLINE] seq=69 ts=1793416397 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (8/3000)
+[OFFLINE] seq=70 ts=1793416402 temp=36.50 umid=40.0 bpm=0 mov=1 alertas=0 | armazenada (9/3000)
+[OFFLINE] seq=71 ts=1793416407 temp=36.50 umid=40.0 bpm=0 mov=1 alertas=0 | armazenada (10/3000)
+[OFFLINE] seq=72 ts=1793416412 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (11/3000)
+[OFFLINE] seq=73 ts=1793416417 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (12/3000)
+[OFFLINE] seq=74 ts=1793416422 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (13/3000)
+[OFFLINE] seq=75 ts=1793416427 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (14/3000)
+[OFFLINE] seq=76 ts=1793416432 temp=36.50 umid=40.0 bpm=75 mov=0 alertas=0 | armazenada (15/3000)
+[WIFI] conectando a "Wokwi-GUEST" (canal 6)...
+[MQTT] conectando a broker.hivemq.com:1883 (TLS=0) como cardioia-g55-p01...
+[ONLINE] conectado ao broker em t=385 s; 15 amostras pendentes
+[SYNC] iniciando sincronizacao de 15 amostras pendentes via MQTT
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"sincronizando","pendentes":15,"capacidade":3000,"descartadas":0,"publicadas":85,"ts":1793416439,"heap":165564,"rssi":-84}
+[SYNC] 10/15 enviadas (seq 71)
+[SYNC] concluida: 15 de 15 enviadas; pendentes=0 (total sincronizadas=30)
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":101,"ts":1793416440,"heap":162164,"rssi":-87}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":77,"ts":1793416440,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":86,"mov":0,"alertas":0,"origem":"rt"}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":78,"ts":1793416442,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":77,"mov":0,"alertas":0,"origem":"rt"}
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":79,"ts":1793416447,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":75,"mov":0,"alertas":0,"origem":"rt"}
+(amostras 80 a 83: 75 bpm, 36,5 C, sem alertas)
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":109,"ts":1793416470,"heap":165564,"rssi":-99}
+[ALERTA] sem_movimento (bpm=75, temp=36.5 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":84,"ts":1793416472,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":75,"mov":0,"alertas":16,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793416472,"ativo":1,"mascara":16,"tipos":"sem_movimento","bpm":75,"temp":36.50,"seq":84}
+[ALERTA] sem_movimento (bpm=75, temp=36.5 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":85,"ts":1793416477,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":75,"mov":0,"alertas":16,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793416477,"ativo":1,"mascara":16,"tipos":"sem_movimento","bpm":75,"temp":36.50,"seq":85}
+(amostras 86 a 143: alerta local de ausencia de movimento (60 s sem movimento no modo de demonstracao) mantido, mascara 16, publicacoes em /sinais e /alertas a cada 5 s; o botao de batimentos deixou de ser pressionado a partir da amostra 124, bpm=0; estado "online" com publicadas=226 na amostra 137)
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":143,"ts":1793416767,"tsrel":0,"temp":36.50,"umid":40.0,"bpm":0,"mov":0,"alertas":16,"origem":"rt"}
+
+Observacao sobre a execucao anterior (mesma sessao, antes do reinicio da simulacao):
+- 22h53: boot e conexao (hipotermia com o DHT22 em 24,0 C); 22h55: DHT22 ajustado para 36,5 C (sem alertas); 22h59: 75 bpm pelo botao e movimento no MPU6050 (captura p2_10, dashboard em estado normal, amostra 89).
+- 23h00: botao a 400 ms (150 bpm) e DHT22 em 38,6 C: alertas de taquicardia, febre e, 60 s apos o ultimo movimento, sem_movimento (mascara 21); captura p2_11 (amostra 102).
+- 23h02: chave desligada em t=550 s; estado "offline" publicado antes de derrubar o enlace (captura p2_12); o dispositivo seguiu coletando e armazenando com os alertas locais ativos (LED e buzzer), chegando a 62 amostras armazenadas em 23h07.
+- Ao religar a chave apos cerca de 5 minutos com o radio desligado, o simulador nao restabeleceu a associacao Wi-Fi ("[WIFI] conectando a Wokwi-GUEST (canal 6)..." sem resposta por mais de 100 s, inclusive apos nova alternancia da chave); a simulacao foi reiniciada e o teste de queda e sincronizacao foi repetido com desconexoes de 65 s (14 amostras) e 75 s (15 amostras), registradas acima e na captura p2_13.
+
+Apendice: teste do vigia de associacao Wi-Fi (firmware com vigiarAssociacaoWifi, salvo no projeto do Wokwi as 23h33; simulacao reiniciada as 23h34, chave desligada as 23h35m34s e religada as 23h40m55s, horario de Cuiaba).
+[BOOT] CardioIA Fase 3, Parte 2 (Fog/Cloud): wearable cardiaco com MQTT
+[BOOT] heap livre=220412 bytes
+[BOOT] chave ligada: iniciando conexao
+[WIFI] conectando a "Wokwi-GUEST" (canal 6)...
+[OFFLINE] seq=1 ts=4 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (1/3000)
+[WIFI] conectado, IP 10.10.0.2, RSSI -82 dBm; NTP solicitado
+[MQTT] conectando a broker.hivemq.com:1883 (TLS=0) como cardioia-g55-p01...
+[ONLINE] conectado ao broker em t=6 s; 1 amostras pendentes
+[SYNC] concluida: 1 de 1 enviadas; pendentes=0 (total sincronizadas=1)
+[NTP] relogio sincronizado: 1793417690 (epoca Unix)
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"offline","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":13,"ts":1793417730,"heap":165572,"rssi":-83}
+[OFFLINE] enlace desligado pela chave em t=49 s; armazenando localmente
+[OFFLINE] seq=30 ts=1793417829 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (20/3000)
+[OFFLINE] seq=50 ts=1793417929 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (40/3000)
+[OFFLINE] seq=70 ts=1793418029 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (60/3000)
+[WIFI] conectando a "Wokwi-GUEST" (canal 6)...
+[WIFI] sem associacao em 30 s; reiniciando o radio e tentando de novo
+[WIFI] conectando a "Wokwi-GUEST" (canal 6)...
+[WIFI] sem associacao em 30 s; reiniciando o radio e tentando de novo
+[WIFI] conectando a "Wokwi-GUEST" (canal 6)...
+[OFFLINE] seq=90 ts=1793418129 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (80/3000)
+[WIFI] sem associacao em 30 s; reiniciando o radio e tentando de novo
+[WIFI] conectando a "Wokwi-GUEST" (canal 6)...
+[WIFI] sem associacao em 30 s; reiniciando o radio e tentando de novo
+[WIFI] conectando a "Wokwi-GUEST" (canal 6)...
+[OFFLINE] seq=103 ts=1793418194 temp=36.50 umid=40.0 bpm=0 mov=0 alertas=0 | armazenada (93/3000)
+(simulacao encerrada as 23h43: apos 5 min 21 s com o radio desligado, quatro tentativas de reassociacao em 2 min nao foram atendidas pelo simulador; a coleta e o armazenamento continuaram normalmente, 93 amostras pendentes)

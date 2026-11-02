@@ -1,0 +1,163 @@
+Evidencia: ponte MQTT -> API (python -m cliente.ponte_mqtt_api --broker 127.0.0.1 --porta 1883 --api http://127.0.0.1:8000 --duracao 30)
+em 31/10/2026, com broker MQTT local (aedes) e o simulador de mensagens no formato do firmware (scripts/simulador_mqtt_esp32.js).
+O ambiente de trabalho nao alcanca broker.hivemq.com; com o ESP32 real basta trocar o broker na linha de comando.
+----------------------------------------------------------------------------------------------------
+2026-10-30 22:20:24,449 INFO [MQTT] conectado a 127.0.0.1:1883 (codigo Success); assinando cardioia/grupo55/paciente01/sinais
+2026-10-30 22:20:26,638 INFO [PONTE] seq=1 -> API id=1 alertas=nenhum email=False
+2026-10-30 22:20:26,642 INFO [PONTE] seq=2 -> API id=2 alertas=nenhum email=False
+2026-10-30 22:20:26,645 INFO [PONTE] seq=3 -> API id=3 alertas=nenhum email=False
+2026-10-30 22:20:26,648 INFO [PONTE] seq=4 -> API id=4 alertas=nenhum email=False
+2026-10-30 22:20:26,652 INFO [PONTE] seq=5 -> API id=5 alertas=nenhum email=False
+2026-10-30 22:20:26,655 INFO [PONTE] seq=6 -> API id=6 alertas=nenhum email=False
+2026-10-30 22:20:28,646 INFO [PONTE] seq=7 -> API id=7 alertas=nenhum email=False
+2026-10-30 22:20:30,587 INFO [PONTE] seq=8 -> API id=8 alertas=nenhum email=False
+2026-10-30 22:20:32,589 INFO [PONTE] seq=9 -> API id=9 alertas=nenhum email=False
+2026-10-30 22:20:34,598 INFO [PONTE] seq=10 -> API id=10 alertas=taquicardia email=True
+2026-10-30 22:20:36,591 INFO [PONTE] seq=11 -> API id=11 alertas=taquicardia email=False
+2026-10-30 22:20:38,594 INFO [PONTE] seq=12 -> API id=12 alertas=taquicardia email=False
+2026-10-30 22:20:40,646 INFO [PONTE] seq=13 -> API id=13 alertas=febre email=True
+2026-10-30 22:20:42,601 INFO [PONTE] seq=14 -> API id=14 alertas=febre email=False
+2026-10-30 22:20:44,599 INFO [PONTE] seq=15 -> API id=15 alertas=nenhum email=False
+2026-10-30 22:20:46,601 INFO [PONTE] seq=16 -> API id=16 alertas=nenhum email=False
+2026-10-30 22:20:54,611 WARNING [MQTT] desconectado (codigo Normal disconnection); 16 encaminhadas, 0 erros
+
+---- log do servidor da API durante a ponte ----
+INFO:     Started server process [4284]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2026-10-30 22:20:26,636 INFO cardioia.api: [OK] cardioia-g55-p01 seq=1 bpm=70 temp=36.4
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:26,641 INFO cardioia.api: [OK] cardioia-g55-p01 seq=2 bpm=71 temp=36.4
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:26,644 INFO cardioia.api: [OK] cardioia-g55-p01 seq=3 bpm=72 temp=36.4
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:26,647 INFO cardioia.api: [OK] cardioia-g55-p01 seq=4 bpm=73 temp=36.4
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:26,649 INFO cardioia.api: [OK] cardioia-g55-p01 seq=5 bpm=74 temp=36.4
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:26,654 INFO cardioia.api: [OK] cardioia-g55-p01 seq=6 bpm=75 temp=36.4
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:28,644 INFO cardioia.api: [OK] cardioia-g55-p01 seq=7 bpm=72 temp=36.5
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:30,586 INFO cardioia.api: [OK] cardioia-g55-p01 seq=8 bpm=75 temp=36.6
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:32,587 INFO cardioia.api: [OK] cardioia-g55-p01 seq=9 bpm=78 temp=36.6
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:34,594 INFO cardioia.email: [EMAIL simulado] [CardioIA] Alerta ALTA: taquicardia (cardioia-g55-p01) -> equipe-clinica@exemplo.local
+2026-10-30 22:20:34,596 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=10: taquicardia | e-mail enviado
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:36,589 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=11: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:38,592 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=12: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:40,593 INFO cardioia.email: [EMAIL simulado] [CardioIA] Alerta MEDIA: febre (cardioia-g55-p01) -> equipe-clinica@exemplo.local
+2026-10-30 22:20:40,643 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=13: febre | e-mail enviado
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:42,600 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=14: febre | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:44,598 INFO cardioia.api: [OK] cardioia-g55-p01 seq=15 bpm=76 temp=37.2
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:20:46,599 INFO cardioia.api: [OK] cardioia-g55-p01 seq=16 bpm=74 temp=36.9
+INFO:     127.0.0.1:36696 - "POST /sinais HTTP/1.1" 201 Created
+INFO:     127.0.0.1:40686 - "GET /saude HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38796 - "GET /saude HTTP/1.1" 200 OK
+2026-10-30 22:21:57,306 INFO cardioia.api: [OK] cardioia-g55-p01 seq=1 bpm=70 temp=36.4
+INFO:     127.0.0.1:38812 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:21:57,311 INFO cardioia.api: [OK] cardioia-g55-p01 seq=6 bpm=75 temp=36.4
+INFO:     127.0.0.1:38852 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:21:57,312 INFO cardioia.api: [OK] cardioia-g55-p01 seq=3 bpm=72 temp=36.4
+INFO:     127.0.0.1:38826 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:21:57,314 INFO cardioia.api: [OK] cardioia-g55-p01 seq=4 bpm=73 temp=36.4
+INFO:     127.0.0.1:38834 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:21:57,315 INFO cardioia.api: [OK] cardioia-g55-p01 seq=5 bpm=74 temp=36.4
+2026-10-30 22:21:57,315 INFO cardioia.api: [OK] cardioia-g55-p01 seq=2 bpm=71 temp=36.4
+INFO:     127.0.0.1:38822 - "POST /sinais HTTP/1.1" 201 Created
+INFO:     127.0.0.1:38836 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:21:59,235 INFO cardioia.api: [OK] cardioia-g55-p01 seq=7 bpm=72 temp=36.5
+INFO:     127.0.0.1:38836 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:01,237 INFO cardioia.api: [OK] cardioia-g55-p01 seq=8 bpm=75 temp=36.6
+INFO:     127.0.0.1:38836 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:03,242 INFO cardioia.api: [OK] cardioia-g55-p01 seq=9 bpm=78 temp=36.6
+INFO:     127.0.0.1:38836 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:05,242 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=10: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:38836 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:07,244 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=11: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:38836 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:09,247 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=12: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:38836 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:11,247 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=13: febre | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:38836 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:13,249 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=14: febre | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:38836 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:15,253 INFO cardioia.api: [OK] cardioia-g55-p01 seq=15 bpm=76 temp=37.2
+INFO:     127.0.0.1:38836 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:17,256 INFO cardioia.api: [OK] cardioia-g55-p01 seq=16 bpm=74 temp=36.9
+INFO:     127.0.0.1:38836 - "POST /sinais HTTP/1.1" 201 Created
+INFO:     127.0.0.1:54010 - "GET /saude HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54022 - "GET /sinais?limite=3 HTTP/1.1" 200 OK
+2026-10-30 22:22:46,517 INFO cardioia.api: [OK] cardioia-g55-p01 seq=1 bpm=70 temp=36.4
+INFO:     127.0.0.1:50672 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:46,522 INFO cardioia.api: [OK] cardioia-g55-p01 seq=5 bpm=74 temp=36.4
+INFO:     127.0.0.1:50702 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:46,523 INFO cardioia.api: [OK] cardioia-g55-p01 seq=3 bpm=72 temp=36.4
+2026-10-30 22:22:46,524 INFO cardioia.api: [OK] cardioia-g55-p01 seq=4 bpm=73 temp=36.4
+INFO:     127.0.0.1:50686 - "POST /sinais HTTP/1.1" 201 Created
+INFO:     127.0.0.1:50690 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:46,527 INFO cardioia.api: [OK] cardioia-g55-p01 seq=6 bpm=75 temp=36.4
+INFO:     127.0.0.1:50704 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:46,529 INFO cardioia.api: [OK] cardioia-g55-p01 seq=2 bpm=71 temp=36.4
+INFO:     127.0.0.1:50684 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:48,356 INFO cardioia.api: [OK] cardioia-g55-p01 seq=7 bpm=72 temp=36.5
+INFO:     127.0.0.1:50684 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:50,356 INFO cardioia.api: [OK] cardioia-g55-p01 seq=8 bpm=75 temp=36.6
+INFO:     127.0.0.1:50684 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:52,359 INFO cardioia.api: [OK] cardioia-g55-p01 seq=9 bpm=78 temp=36.6
+INFO:     127.0.0.1:50684 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:54,360 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=10: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:50684 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:56,364 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=11: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:50684 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:22:58,433 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=12: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:50684 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:00,366 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=13: febre | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:50684 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:02,370 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=14: febre | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:50684 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:04,368 INFO cardioia.api: [OK] cardioia-g55-p01 seq=15 bpm=76 temp=37.2
+INFO:     127.0.0.1:50684 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:06,373 INFO cardioia.api: [OK] cardioia-g55-p01 seq=16 bpm=74 temp=36.9
+INFO:     127.0.0.1:50684 - "POST /sinais HTTP/1.1" 201 Created
+INFO:     127.0.0.1:34530 - "GET /saude HTTP/1.1" 200 OK
+2026-10-30 22:23:28,587 INFO cardioia.api: [OK] cardioia-g55-p01 seq=1 bpm=70 temp=36.4
+2026-10-30 22:23:28,588 INFO cardioia.api: [OK] cardioia-g55-p01 seq=2 bpm=71 temp=36.4
+INFO:     127.0.0.1:54878 - "POST /sinais HTTP/1.1" 201 Created
+INFO:     127.0.0.1:54882 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:28,592 INFO cardioia.api: [OK] cardioia-g55-p01 seq=4 bpm=73 temp=36.4
+INFO:     127.0.0.1:54892 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:28,594 INFO cardioia.api: [OK] cardioia-g55-p01 seq=5 bpm=74 temp=36.4
+2026-10-30 22:23:28,595 INFO cardioia.api: [OK] cardioia-g55-p01 seq=6 bpm=75 temp=36.4
+INFO:     127.0.0.1:54900 - "POST /sinais HTTP/1.1" 201 Created
+INFO:     127.0.0.1:54908 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:28,601 INFO cardioia.api: [OK] cardioia-g55-p01 seq=3 bpm=72 temp=36.4
+INFO:     127.0.0.1:54886 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:30,578 INFO cardioia.api: [OK] cardioia-g55-p01 seq=7 bpm=72 temp=36.5
+INFO:     127.0.0.1:54886 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:32,580 INFO cardioia.api: [OK] cardioia-g55-p01 seq=8 bpm=75 temp=36.6
+INFO:     127.0.0.1:54886 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:34,583 INFO cardioia.api: [OK] cardioia-g55-p01 seq=9 bpm=78 temp=36.6
+INFO:     127.0.0.1:54886 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:36,584 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=10: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:54886 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:38,588 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=11: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:54886 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:40,589 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=12: taquicardia | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:54886 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:42,590 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=13: febre | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:54886 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:44,593 WARNING cardioia.api: [ALERTA] cardioia-g55-p01 seq=14: febre | e-mail suprimido (intervalo minimo)
+INFO:     127.0.0.1:54886 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:46,773 INFO cardioia.api: [OK] cardioia-g55-p01 seq=15 bpm=76 temp=37.2
+INFO:     127.0.0.1:54886 - "POST /sinais HTTP/1.1" 201 Created
+2026-10-30 22:23:48,598 INFO cardioia.api: [OK] cardioia-g55-p01 seq=16 bpm=74 temp=36.9
+INFO:     127.0.0.1:54886 - "POST /sinais HTTP/1.1" 201 Created

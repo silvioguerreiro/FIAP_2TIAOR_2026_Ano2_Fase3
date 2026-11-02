@@ -1,0 +1,120 @@
+Evidencia: log do monitor serial (115200) do projeto da Parte 2 (Fog/Cloud, MQTT) executado no Wokwi (wokwi.com, ESP32 DevKit C V4)
+Capturado em 30/10/2026, 21h10 a 21h16 (Cuiaba), a partir do navegador integrado; texto copiado do monitor serial. Dois trechos
+repetitivos (amostras seq 12 a 26 e seq 39 a 42, identicas em formato as vizinhas) foram resumidos em linhas entre parenteses.
+Firmware: sketch.ino da Parte 2 sem config.h (perfil do broker publico broker.hivemq.com:1883, sem TLS), MODO_DEMONSTRACAO 1.
+Broker: broker.hivemq.com (publico). Assinante de verificacao: HiveMQ Websocket Client (ver log_broker_websocket_client_2026-10-30.txt).
+
+Acoes do operador (tempo de simulacao aproximado):
+  t=0 s    chave na posicao ligada: Wi-Fi Wokwi-GUEST, NTP e MQTT conectam em 5 s; a amostra seq=1, coletada antes da conexao, e sincronizada
+  t=45 s   aba do simulador em segundo plano por cerca de 40 s: o broker expirou a sessao (testamento "offline_inesperado" entregue ao assinante) e o firmware reconectou sozinho em t=51 s
+  t=135 s  chave movida para a posicao desligada: estado "offline" publicado antes de derrubar o enlace; 9 amostras (seq 28 a 36) armazenadas localmente
+  t=150 s  20 pressoes do botao a cada 800 ms (75 bpm) durante o periodo offline
+  t=183 s  chave movida para a posicao ligada: reconexao e sincronizacao das 9 amostras via MQTT com origem "sync" e carimbos de tempo originais
+
+Observacao: o DHT22 permaneceu no valor padrao do Wokwi (24,0 C), por isso o alerta de hipotermia fica ativo durante toda a sessao; isso demonstra a publicacao retida em <prefixo>/alertas.
+
+---------------------------------------------------------------------------------------------------
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1156
+load:0x40078000,len:11456
+ho 0 tail 12 room 4
+load:0x40080400,len:2972
+entry 0x400805dc
+
+[BOOT] CardioIA Fase 3, Parte 2 (Fog/Cloud): wearable cardiaco com MQTT
+[BOOT] amostragem=5000 ms, buffer=3000 amostras x 20 bytes = 60000 bytes
+[BOOT] limites: bpm>120, bpm<50, temp>38.0, temp<35.0, sem movimento>60 s
+[BOOT] dica: no Wokwi, ajuste o DHT22 para ~36.5 C (temperatura cutanea normal); 24 C gera alerta de hipotermia
+[BOOT] topicos: cardioia/grupo55/paciente01/sinais | cardioia/grupo55/paciente01/alertas | cardioia/grupo55/paciente01/estado
+[SENSOR] MPU6050 iniciado
+[BOOT] heap livre=220420 bytes
+[BOOT] chave ligada: iniciando conexao
+[WIFI] conectando a "Wokwi-GUEST" (canal 6)...
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[OFFLINE] seq=1 ts=4 temp=24.00 umid=40.0 bpm=0 mov=0 alertas=8 | armazenada (1/3000)
+[WIFI] conectado, IP 10.10.0.2, RSSI -82 dBm; NTP solicitado
+[MQTT] conectando a broker.hivemq.com:1883 (TLS=0) como cardioia-g55-p01...
+[ONLINE] conectado ao broker em t=5 s; 1 amostras pendentes
+[SYNC] iniciando sincronizacao de 1 amostras pendentes via MQTT
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"sincronizando","pendentes":1,"capacidade":3000,"descartadas":0,"publicadas":0,"ts":1793409072,"heap":165552,"rssi":-70}
+[SYNC] concluida: 1 de 1 enviadas; pendentes=0 (total sincronizadas=1)
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":2,"ts":1793409072,"heap":162152,"rssi":-72}
+[NTP] relogio sincronizado: 1793409072 (epoca Unix)
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":2,"ts":1793409075,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409075,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":2}
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":3,"ts":1793409080,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409080,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":3}
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":4,"ts":1793409085,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409085,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":4}
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":5,"ts":1793409090,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409090,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":5}
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":6,"ts":1793409095,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409095,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":6}
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":7,"ts":1793409100,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409100,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":7}
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":15,"ts":1793409102,"heap":163852,"rssi":-94}
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":8,"ts":1793409105,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409105,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":8}
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":9,"ts":1793409110,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409110,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":9}
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":10,"ts":1793409115,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409115,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":10}
+[OFFLINE] conexao MQTT perdida; armazenando localmente
+[MQTT] conectando a broker.hivemq.com:1883 (TLS=0) como cardioia-g55-p01...
+[ONLINE] conectado ao broker em t=51 s; 0 amostras pendentes
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":22,"ts":1793409117,"heap":165576,"rssi":-89}
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":11,"ts":1793409120,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409120,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":11}
+(... amostras seq 12 a 26 publicadas a cada 5 s no mesmo formato, com estado "online" republicado a cada 30 s: seq 16 em ts 1793409145, seq 22 em ts 1793409175 ...)
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":27,"ts":1793409200,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409200,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":27}
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"offline","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":59,"ts":1793409201,"heap":165608,"rssi":-88}
+[OFFLINE] enlace desligado pela chave em t=135 s; armazenando localmente
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[OFFLINE] seq=28 ts=1793409205 temp=24.00 umid=40.0 bpm=0 mov=0 alertas=8 | armazenada (1/3000)
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[OFFLINE] seq=29 ts=1793409210 temp=24.00 umid=40.0 bpm=0 mov=0 alertas=8 | armazenada (2/3000)
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[OFFLINE] seq=30 ts=1793409215 temp=24.00 umid=40.0 bpm=0 mov=0 alertas=8 | armazenada (3/3000)
+[ALERTA] hipotermia (bpm=75, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[OFFLINE] seq=31 ts=1793409220 temp=24.00 umid=40.0 bpm=75 mov=0 alertas=8 | armazenada (4/3000)
+[ALERTA] hipotermia (bpm=75, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[OFFLINE] seq=32 ts=1793409225 temp=24.00 umid=40.0 bpm=75 mov=0 alertas=8 | armazenada (5/3000)
+[ALERTA] hipotermia (bpm=75, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[OFFLINE] seq=33 ts=1793409230 temp=24.00 umid=40.0 bpm=75 mov=0 alertas=8 | armazenada (6/3000)
+[ALERTA] hipotermia (bpm=75, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[OFFLINE] seq=34 ts=1793409235 temp=24.00 umid=40.0 bpm=75 mov=0 alertas=8 | armazenada (7/3000)
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[OFFLINE] seq=35 ts=1793409240 temp=24.00 umid=40.0 bpm=0 mov=0 alertas=8 | armazenada (8/3000)
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[OFFLINE] seq=36 ts=1793409245 temp=24.00 umid=40.0 bpm=0 mov=0 alertas=8 | armazenada (9/3000)
+[WIFI] conectando a "Wokwi-GUEST" (canal 6)...
+[MQTT] conectando a broker.hivemq.com:1883 (TLS=0) como cardioia-g55-p01...
+[ONLINE] conectado ao broker em t=183 s; 9 amostras pendentes
+[SYNC] iniciando sincronizacao de 9 amostras pendentes via MQTT
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"sincronizando","pendentes":9,"capacidade":3000,"descartadas":0,"publicadas":60,"ts":1793409250,"heap":165572,"rssi":-86}
+[SYNC] concluida: 9 de 9 enviadas; pendentes=0 (total sincronizadas=10)
+[MQTT] cardioia/grupo55/paciente01/estado <- {"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":70,"ts":1793409250,"heap":160460,"rssi":-89}
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":37,"ts":1793409250,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409250,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":37}
+[ALERTA] hipotermia (bpm=0, temp=24.0 C); LED vermelho e buzzer acionados localmente
+[ONLINE] cardioia/grupo55/paciente01/sinais <- {"disp":"cardioia-g55-p01","seq":38,"ts":1793409255,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+[MQTT] cardioia/grupo55/paciente01/alertas <- {"disp":"cardioia-g55-p01","ts":1793409255,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":38}
+(... continua a cada 5 s ate seq 42, ts 1793409275)

@@ -1,0 +1,60 @@
+Evidencia: e-mails gerados pela automacao em modo simulado (logs/emails_simulados.log) durante a execucao do cliente REST em 31/10/2026.
+Nenhuma mensagem saiu pela rede; o conteudo e o que seria enviado por SMTP nos modos local ou smtp.
+----------------------------------------------------------------------------------------------------
+==============================================================================
+2026-10-31T02:19:42.107083+00:00 | modo=simulado | entregue=True | registrado em log (modo simulado, nada enviado pela rede)
+Para: equipe-clinica@exemplo.local
+Assunto: [CardioIA] Alerta ALTA: taquicardia (cardioia-g55-p01)
+
+CardioIA, monitoramento continuo (Fase 3, Ir Alem 1)
+
+Paciente (pseudonimo): cardioia-g55-p01
+Instante da amostra  : 30/10/2026 22:07:01 -04
+Sequencia            : 8 (origem cliente)
+
+Alertas detectados:
+  - taquicardia (alta): frequencia cardiaca de 131 bpm acima de 120 bpm
+
+Sinais da amostra: bpm 131 | temperatura 36.7 C | umidade 45% | movimento sim
+
+Este aviso e gerado automaticamente por um prototipo academico com dados simulados;
+nao substitui a avaliacao de um profissional de saude.
+
+==============================================================================
+2026-10-31T02:19:42.331031+00:00 | modo=simulado | entregue=True | registrado em log (modo simulado, nada enviado pela rede)
+Para: equipe-clinica@exemplo.local
+Assunto: [CardioIA] Alerta MEDIA: febre (cardioia-g55-p01)
+
+CardioIA, monitoramento continuo (Fase 3, Ir Alem 1)
+
+Paciente (pseudonimo): cardioia-g55-p01
+Instante da amostra  : 30/10/2026 22:07:46 -04
+Sequencia            : 17 (origem cliente)
+
+Alertas detectados:
+  - febre (media): temperatura de 38.2 C acima de 38.0 C
+
+Sinais da amostra: bpm 93 | temperatura 38.2 C | umidade 46% | movimento nao
+
+Este aviso e gerado automaticamente por um prototipo academico com dados simulados;
+nao substitui a avaliacao de um profissional de saude.
+
+==============================================================================
+2026-10-31T02:19:45.305293+00:00 | modo=simulado | entregue=True | registrado em log (modo simulado, nada enviado pela rede)
+Para: equipe-clinica@exemplo.local
+Assunto: [CardioIA] Alerta ALTA: sem_movimento (cardioia-g55-p01)
+
+CardioIA, monitoramento continuo (Fase 3, Ir Alem 1)
+
+Paciente (pseudonimo): cardioia-g55-p01
+Instante da amostra  : 30/10/2026 22:18:11 -04
+Sequencia            : 142 (origem cliente)
+
+Alertas detectados:
+  - sem_movimento (alta): sem movimento ha 605 s (limite 600 s)
+
+Sinais da amostra: bpm 74 | temperatura 37.2 C | umidade 43% | movimento nao
+
+Este aviso e gerado automaticamente por um prototipo academico com dados simulados;
+nao substitui a avaliacao de um profissional de saude.
+

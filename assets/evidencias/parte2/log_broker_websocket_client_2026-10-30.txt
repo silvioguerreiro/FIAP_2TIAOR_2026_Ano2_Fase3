@@ -1,0 +1,63 @@
+Evidencia: mensagens recebidas pelo HiveMQ Websocket Client (https://www.hivemq.com/demos/websocket-client/) conectado ao
+broker publico (mqtt-dashboard.com / broker.hivemq.com, websockets TLS porta 8884), assinatura "cardioia/grupo55/#" (QoS 2),
+enquanto o ESP32 simulado no Wokwi (Parte 2) publicava. Capturado em 30/10/2026, 21h12 a 21h16 (Cuiaba), texto copiado da
+secao "Messages" do cliente (ordem do mais recente para o mais antigo, como exibido). Captura de tela correspondente:
+p2_01_broker_hivemq_websocket_client_mensagens.jpg e p2_02_broker_mensagens_sync.jpg.
+
+Leitura dos eventos (do mais antigo para o mais recente):
+  21:12:23  ao assinar, o cliente recebe imediatamente as duas mensagens RETIDAS do dispositivo (ultimo estado "online" e ultimo alerta)
+  21:12:48  testamento (LWT) "offline_inesperado" entregue pelo broker com QoS 1, quando a sessao do ESP32 expirou (aba do simulador em segundo plano)
+  21:12:57  dispositivo reconectado por conta propria ("estado":"online", publicadas 22)
+  21:13:00 a 21:14:27  amostras em tempo real (origem "rt") a cada 5 s em .../sinais, com o estado do alerta em .../alertas
+  21:14:28  estado "offline" publicado antes de o dispositivo derrubar o enlace (chave desligada)
+  21:15:16  estado "sincronizando" com pendentes=9 ao reconectar
+  21:15:17  nove amostras seq 28 a 36 com origem "sync" e carimbos de tempo originais (ts 1793409205 a 1793409245), em ordem cronologica
+  21:15:17  estado "online" e retomada do tempo real (seq 37 em diante)
+
+---------------------------------------------------------------------------------------------------
+2026-10-30 21:15:50  Topic: cardioia/grupo55/paciente01/alertas  Qos: 0
+{"disp":"cardioia-g55-p01","ts":1793409275,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":42}
+2026-10-30 21:15:49  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":42,"ts":1793409275,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+(... seq 41 a 38 em tempo real, mesmo formato, 21:15:22 a 21:15:39 ...)
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/alertas  Qos: 0
+{"disp":"cardioia-g55-p01","ts":1793409250,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":37}
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":37,"ts":1793409250,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/estado  Qos: 0
+{"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":70,"ts":1793409250,"heap":160460,"rssi":-89}
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":36,"ts":1793409245,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"sync"}
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":35,"ts":1793409240,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"sync"}
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":34,"ts":1793409235,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":75,"mov":0,"alertas":8,"origem":"sync"}
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":33,"ts":1793409230,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":75,"mov":0,"alertas":8,"origem":"sync"}
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":32,"ts":1793409225,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":75,"mov":0,"alertas":8,"origem":"sync"}
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":31,"ts":1793409220,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":75,"mov":0,"alertas":8,"origem":"sync"}
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":30,"ts":1793409215,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"sync"}
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":29,"ts":1793409210,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"sync"}
+2026-10-30 21:15:17  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":28,"ts":1793409205,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"sync"}
+2026-10-30 21:15:16  Topic: cardioia/grupo55/paciente01/estado  Qos: 0
+{"disp":"cardioia-g55-p01","estado":"sincronizando","pendentes":9,"capacidade":3000,"descartadas":0,"publicadas":60,"ts":1793409250,"heap":165572,"rssi":-86}
+2026-10-30 21:14:28  Topic: cardioia/grupo55/paciente01/estado  Qos: 0
+{"disp":"cardioia-g55-p01","estado":"offline","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":59,"ts":1793409201,"heap":165608,"rssi":-88}
+2026-10-30 21:14:27  Topic: cardioia/grupo55/paciente01/alertas  Qos: 0
+{"disp":"cardioia-g55-p01","ts":1793409200,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":27}
+2026-10-30 21:14:27  Topic: cardioia/grupo55/paciente01/sinais  Qos: 0
+{"disp":"cardioia-g55-p01","seq":27,"ts":1793409200,"tsrel":0,"temp":24.00,"umid":40.0,"bpm":0,"mov":0,"alertas":8,"origem":"rt"}
+(... seq 26 a 11 em tempo real, mesmo formato, 21:13:00 a 21:14:22; estado "online" republicado em 21:13:27 (publicadas 35) e 21:14:04 (publicadas 48) ...)
+2026-10-30 21:12:57  Topic: cardioia/grupo55/paciente01/estado  Qos: 0
+{"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":22,"ts":1793409117,"heap":165576,"rssi":-89}
+2026-10-30 21:12:48  Topic: cardioia/grupo55/paciente01/estado  Qos: 1
+{"disp":"cardioia-g55-p01","estado":"offline_inesperado"}
+2026-10-30 21:12:23  Topic: cardioia/grupo55/paciente01/alertas  Qos: 0  Retained
+{"disp":"cardioia-g55-p01","ts":1793409115,"ativo":1,"mascara":8,"tipos":"hipotermia","bpm":0,"temp":24.00,"seq":10}
+2026-10-30 21:12:23  Topic: cardioia/grupo55/paciente01/estado  Qos: 0  Retained
+{"disp":"cardioia-g55-p01","estado":"online","pendentes":0,"capacidade":3000,"descartadas":0,"publicadas":15,"ts":1793409102,"heap":163852,"rssi":-94}

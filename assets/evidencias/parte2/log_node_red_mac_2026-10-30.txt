@@ -1,0 +1,48 @@
+Log do Node-RED 4.1.17 em execucao no Mac do aluno (macOS, Node.js v24.16.0), 30/10/2026, horario de Cuiaba.
+Instalacao local em ~/cardioia-nodered (npm install node-red@4 @flowfuse/node-red-dashboard), diretorio de usuario ~/cardioia-nodered/userdir, fluxo flows.json importado da pasta node_red da entrega.
+Comando: node node_modules/node-red/red.js -u ~/cardioia-nodered/userdir -p 1880
+Linhas do aviso padrao sobre credentialSecret (nao ha credenciais no fluxo, o broker publico nao usa autenticacao) foram mantidas; as desconexoes 'transport error' sao as paginas do dashboard abertas pelo navegador sem interface usado nas capturas.
+---
+30 Oct 22:44:46 - [info] 
+
+Welcome to Node-RED
+===================
+
+30 Oct 22:44:46 - [info] Node-RED version: v4.1.17
+30 Oct 22:44:46 - [info] Node.js  version: v24.16.0
+30 Oct 22:44:46 - [info] Darwin 27.2.0 arm64 LE
+30 Oct 22:44:46 - [info] Loading palette nodes
+30 Oct 22:44:46 - [info] Settings file  : /Users/silvioprestesguerreirojunior/cardioia-nodered/userdir/settings.js
+30 Oct 22:44:46 - [info] Context store  : 'default' [module=memory]
+30 Oct 22:44:46 - [info] User directory : /Users/silvioprestesguerreirojunior/cardioia-nodered/userdir
+30 Oct 22:44:46 - [warn] Projects disabled : editorTheme.projects.enabled=false
+30 Oct 22:44:46 - [info] Flows file     : /Users/silvioprestesguerreirojunior/cardioia-nodered/userdir/flows.json
+30 Oct 22:44:46 - [warn] 
+
+---------------------------------------------------------------------
+Your flow credentials file is encrypted using a system-generated key.
+
+If the system-generated key is lost for any reason, your credentials
+file will not be recoverable, you will have to delete it and re-enter
+your credentials.
+
+You should set your own key using the 'credentialSecret' option in
+your settings file. Node-RED will then re-encrypt your credentials
+file using your chosen key the next time you deploy a change.
+---------------------------------------------------------------------
+
+30 Oct 22:44:46 - [info] Server now running at http://127.0.0.1:1880/
+30 Oct 22:44:46 - [warn] Encrypted credentials not found
+30 Oct 22:44:46 - [info] Starting flows
+30 Oct 22:44:46 - [info] [ui-base:CardioIA] Node-RED Dashboard 2.0 (v1.34.1) started at /dashboard
+30 Oct 22:44:46 - [info] [ui-base:CardioIA] Created socket.io server bound to Node-RED port at path /dashboard/socket.io
+30 Oct 22:44:46 - [info] Started flows
+30 Oct 22:44:47 - [info] [mqtt-broker:Broker MQTT (HiveMQ publico)] Connected to broker: cardioia-nodered-g55@mqtt://broker.hivemq.com:1883
+30 Oct 22:57:51 - [info] [ui-base:CardioIA] Disconnected wEp-0yjzD243eReRAAAB due to transport close
+30 Oct 23:00:16 - [info] [ui-base:CardioIA] Disconnected 8UV7kqbyGeY0kdygAAAC due to transport close
+30 Oct 23:01:22 - [info] [ui-base:CardioIA] Disconnected xdnk6gKm4J2z_CWtAAAD due to transport close
+30 Oct 23:04:00 - [info] [ui-base:CardioIA] Disconnected j6mKtT7-DtsjdU7UAAAE due to transport error
+30 Oct 23:04:09 - [info] [ui-base:CardioIA] Disconnected s9Snv38D3PKobjEnAAAF due to transport close
+30 Oct 23:10:27 - [info] [ui-base:CardioIA] Disconnected kXsM9eFP4xHjyHiMAAAG due to transport close
+30 Oct 23:10:45 - [info] [ui-base:CardioIA] Disconnected x2350lIbHbN1gwIHAAAH due to transport close
+30 Oct 23:14:08 - [info] [ui-base:CardioIA] Disconnected 2H1zP6rknjxmzgxfAAAI due to transport close
