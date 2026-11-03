@@ -162,13 +162,18 @@ uint32_t inicioTentativaWifiMs = 0;   // marca o início da associação Wi-Fi (
 void IRAM_ATTR isrBatimento() {
   uint32_t agora = millis();
   if (agora - ultimoBatimentoMs < DEBOUNCE_BATIMENTO_MS) return;
-  if (ultimoBatimentoMs != 0) {
+  // Uma pausa maior que TEMPO_ZERAR_BPM_MS encerra a sequência anterior: esse
+  // intervalo não entra na média (evita bpm de 1 a 11 e bradicardia falsa).
+  if (ultimoBatimentoMs != 0 && agora - ultimoBatimentoMs <= TEMPO_ZERAR_BPM_MS) {
     intervalosMs[idxIntervalo] = agora - ultimoBatimentoMs;
     idxIntervalo = (idxIntervalo + 1) % N_INTERVALOS_MEDIA;
-    if (nIntervalos < N_INTERVALOS_MEDIA) nIntervalos++;
+    if (nIntervalos < N_INTERVALOS_MEDIA) nIntervalos = nIntervalos + 1;
+  } else {
+    nIntervalos = 0;   // nova sequência de batimentos começa limpa
+    idxIntervalo = 0;
   }
   ultimoBatimentoMs = agora;
-  totalBatimentos++;
+  totalBatimentos = totalBatimentos + 1;
 }
 
 uint16_t calcularBpm() {
@@ -177,11 +182,14 @@ uint16_t calcularBpm() {
   n = nIntervalos; ultimo = ultimoBatimentoMs;
   for (uint8_t i = 0; i < N_INTERVALOS_MEDIA; i++) copia[i] = intervalosMs[i];
   interrupts();
-  if (n == 0 || ultimo == 0) return 0;
+  if (ultimo == 0) return 0;
+  // A expiração vem antes do teste de n == 0: após uma única pressão seguida de
+  // pausa longa, o histórico também precisa ser zerado.
   if (millis() - ultimo > TEMPO_ZERAR_BPM_MS) {
     noInterrupts(); nIntervalos = 0; idxIntervalo = 0; ultimoBatimentoMs = 0; interrupts();
     return 0;
   }
+  if (n == 0) return 0;
   uint32_t soma = 0;
   for (uint8_t i = 0; i < n; i++) soma += copia[i];
   uint32_t media = soma / n;

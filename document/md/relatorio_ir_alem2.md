@@ -4,7 +4,7 @@
 |---|---|
 | Aluno | Silvio Prestes Guerreiro Junior, RM 567958, turma 2TIAOR, Grupo 55 (individual) |
 | Curso, fase, tutor e coordenador | Inteligência Artificial, Ano 2, Fase 3 (Ir Além 2); Leonardo Ruiz Orabona; André Godoi Chiovato |
-| Data e código | 31 de outubro de 2026; notebook em src/ir_alem2_ia_series do repositório FIAP_2TIAOR_2026_Ano2_Fase3 |
+| Data e código | 31 de outubro de 2026, revisado em 2 de novembro de 2026; notebook em src/ir_alem2_ia_series do repositório FIAP_2TIAOR_2026_Ano2_Fase3 |
 
 ## 1. Objetivo e dados
 
@@ -16,19 +16,19 @@ Os dados de treino são sintéticos e documentados no notebook: 1.200 episódios
 
 A regressão logística usa padronização e validação cruzada de cinco dobras (scikit-learn); seus coeficientes padronizados tornam a decisão legível: a fração abaixo de 50 bpm (3,19), o RMSSD (2,33), a média em repouso (1,37) e o máximo (1,14) empurram para risco; a fração com movimento (menos 2,23) e o mínimo (menos 1,30) empurram para normal, ou seja, o modelo aprendeu que frequência alta com movimento é atividade, não risco.
 
-A rede neuromórfica, implementada em NumPy, codifica cada característica em seis campos receptivos gaussianos (72 neurônios de entrada) que emitem trens de Poisson durante 100 passos de 1 ms; dois neurônios LIF de saída (normal e risco) integram a corrente sináptica com vazamento, disparam ao cruzar o limiar e entram em período refratário. O aprendizado é uma regra delta supervisionada sobre a contagem de disparos de cada saída, em 12 épocas (17 s de treino na máquina de teste). A decisão é do neurônio que mais dispara; uma variante antecipada decide assim que um neurônio lidera por dois disparos.
+A rede neuromórfica, implementada em NumPy, codifica cada característica em seis campos receptivos gaussianos (72 neurônios de entrada) que emitem trens de Poisson durante 100 passos de 1 ms; dois neurônios LIF de saída (normal e risco) integram a corrente sináptica com vazamento, disparam ao cruzar o limiar e voltam ao potencial de repouso (sem período refratário explícito). O aprendizado é uma regra delta supervisionada sobre a contagem de disparos de cada saída, em 12 épocas (cerca de 3 s de treino no computador do aluno; 17 s no ambiente de trabalho da primeira execução). A decisão é do neurônio que mais dispara; uma variante antecipada decide assim que um neurônio lidera por dois disparos.
 
 ## 3. Resultados
 
-Tabela 1. Métricas no conjunto de teste (360 janelas) e tempo de inferência por janela na máquina de teste (2 núcleos).
+Tabela 1. Métricas no conjunto de teste (360 janelas) e tempo de inferência por janela no computador do aluno (Apple Silicon); os tempos variam com o processador, as métricas não.
 
 | Método | Acurácia | Precisão | Sensibilidade | F1 | Inferência |
 |---|---|---|---|---|---|
 | Regra de limiares (firmware) | 0,897 | 0,842 | 0,978 | 0,905 | desprezível |
-| Regressão logística | 1,000 | 1,000 | 1,000 | 1,000 | 5 microssegundos |
-| Rede LIF | 0,983 | 0,989 | 0,978 | 0,983 | 1,2 ms (100 passos) |
+| Regressão logística | 1,000 | 1,000 | 1,000 | 1,000 | cerca de 1 microssegundo |
+| Rede LIF | 0,983 | 0,989 | 0,978 | 0,983 | cerca de 0,3 ms (100 passos) |
 
-A regra acerta apenas 43% das janelas de atividade física e 94% das de arritmia; os dois classificadores corrigem a atividade por completo e a rede LIF mantém 94% na arritmia, com acurácia média de 0,986 (desvio 0,006) em cinco repetições da codificação estocástica. A validação cruzada da regressão logística dá 0,996 (desvio 0,003), e o acerto perfeito no teste reflete a separabilidade dos dados sintéticos, não desempenho clínico. A rede LIF processa em média 847 eventos sinápticos por janela contra 12 produtos da regressão, e sua decisão antecipada ocorre em mediana aos 19 ms dos 100 ms simulados (percentil 90 em 42 ms), com acurácia 0,992. Aplicados às janelas reais do protótipo, os três métodos concordam: repouso a 80 bpm classificado como normal (probabilidade de risco 0,002) e os trechos a 150 bpm como risco (0,998 e 0,999).
+A regra acerta apenas 43% das janelas de atividade física e 94% das de arritmia; a regressão logística corrige os dois casos, e a rede LIF acerta 96% da atividade física e mantém os 94% da regra na arritmia, com acurácia média de 0,986 (desvio 0,006) em cinco repetições da codificação estocástica. A validação cruzada da regressão logística dá 0,996 (desvio 0,003), e o acerto perfeito no teste reflete a separabilidade dos dados sintéticos, não desempenho clínico. A rede LIF processa em média 847 eventos sinápticos por janela contra 12 produtos da regressão, e sua decisão antecipada ocorre em mediana aos 19 ms dos 100 ms simulados (percentil 90 em 42 ms), com acurácia 0,992. Aplicados às janelas reais do protótipo, os três métodos concordam: repouso a 80 bpm classificado como normal (probabilidade de risco 0,002) e os trechos a 150 bpm como risco (0,998 e 0,999).
 
 ## 4. Discussão
 

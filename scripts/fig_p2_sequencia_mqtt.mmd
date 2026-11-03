@@ -4,16 +4,16 @@ sequenceDiagram
   participant N as Node-RED (Fog)
   E->>B: CONNECT (clientId cardioia-g55-p01, keepalive 30 s,<br/>testamento em /estado: offline_inesperado, QoS 1, retido)
   B-->>E: CONNACK
-  N->>B: SUBSCRIBE cardioia/grupo55/paciente01/ (curinga multinivel)
+  N->>B: SUBSCRIBE .../sinais, .../alertas e .../estado<br/>(tres topicos de cardioia/grupo55/paciente01)
   B-->>N: mensagens retidas de /estado e /alertas
   loop a cada 5 s, dispositivo online
     E->>B: PUBLISH /sinais JSON (origem rt, seq, ts NTP)
     B-->>N: /sinais
-    Note right of N: normaliza, avalia limites,<br/>atualiza graficos e medidores
+    Note right of N: normaliza, avalia limites (Fog),<br/>painel de alerta, notificacao,<br/>graficos e medidores
     opt alerta ativo ou mudanca no estado dos alertas
       E->>B: PUBLISH /alertas JSON (retido)
       B-->>N: /alertas
-      Note right of N: painel vermelho<br/>e notificacao
+      Note right of N: texto 'alerta do dispositivo'<br/>(mensagem retida)
     end
   end
   E->>B: PUBLISH /estado online (a cada 30 s, retido)

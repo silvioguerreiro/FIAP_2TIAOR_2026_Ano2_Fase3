@@ -67,7 +67,8 @@ class Armazenamento:
     # ------------------------------------------------------------------ leitura
     def listar(self, disp: Optional[str] = None, limite: int = 100, apenas_alertas: bool = False) -> list[SinalArmazenado]:
         with self._lock:
-            fontes = [self._por_paciente[disp]] if disp else list(self._por_paciente.values())
+            # .get evita criar um paciente vazio no defaultdict ao consultar um disp inexistente
+            fontes = [self._por_paciente.get(disp, ())] if disp else list(self._por_paciente.values())
             itens = [i for fila in fontes for i in fila]
         if apenas_alertas:
             itens = [i for i in itens if i.alertas_avaliados]

@@ -34,10 +34,10 @@ As figuras geradas pelo notebook ficam em `assets/figuras/ir_alem2/` (exemplos d
 | Método | Acurácia | Precisão | Sensibilidade | F1 | Inferência por janela |
 |---|---|---|---|---|---|
 | Regra de limiares (firmware) | 0,897 | 0,842 | 0,978 | 0,905 | desprezível |
-| Regressão logística | 1,000 | 1,000 | 1,000 | 1,000 | cerca de 5 microssegundos |
-| Rede LIF (NumPy) | 0,983 (0,986 mais ou menos 0,006 em 5 repetições) | 0,989 | 0,978 | 0,983 | cerca de 1,2 ms (simulação de 100 passos) |
+| Regressão logística | 1,000 | 1,000 | 1,000 | 1,000 | cerca de 1 microssegundo |
+| Rede LIF (NumPy) | 0,983 (0,986 mais ou menos 0,006 em 5 repetições) | 0,989 | 0,978 | 0,983 | cerca de 0,3 ms (simulação de 100 passos) |
 
-A regra erra por construção na atividade física (falso alerta, 43% de acerto nesse subtipo) e na arritmia com média normal (94%); os dois classificadores corrigem esses casos. A rede LIF decide antes do fim da janela em mediana 19 ms de 100 ms simulados, com acurácia 0,992 na decisão antecipada, mas custa ordens de grandeza mais por janela em CPU convencional, como discute o capítulo 3 do curso sobre redes impulsionais em arquitetura Von Neumann. Os números vêm de dados sintéticos e devem ser lidos como demonstração de método, não como desempenho clínico.
+A regra erra por construção na atividade física (falso alerta, 43% de acerto nesse subtipo) e na arritmia com média normal (94%); a regressão logística corrige os dois casos, e a rede LIF corrige a atividade física (96% de acerto) mas mantém o mesmo acerto da regra na arritmia (94%). A rede LIF decide antes do fim da janela em mediana 19 ms de 100 ms simulados, com acurácia 0,992 na decisão antecipada, mas custa ordens de grandeza mais por janela em CPU convencional, como discute o capítulo 3 do curso sobre redes impulsionais em arquitetura Von Neumann. Os números vêm de dados sintéticos e devem ser lidos como demonstração de método, não como desempenho clínico.
 
 ## Como executar
 
@@ -48,8 +48,8 @@ pip install -r requirements.txt
 jupyter lab cardioia_fase3_ir_alem2_series_lif.ipynb   # ou: jupyter nbconvert --to notebook --execute cardioia_fase3_ir_alem2_series_lif.ipynb
 ```
 
-O notebook executa em menos de um minuto em um computador comum (sementes fixas; a rede LIF treina 12 épocas em cerca de 17 s na máquina de teste; os tempos variam com o processador, as métricas não). As figuras são gravadas em `assets/figuras/ir_alem2/` quando a pasta do repositório é detectada; caso contrário, apenas exibidas.
+O notebook executa em menos de um minuto em um computador comum (sementes fixas; a rede LIF treina 12 épocas em cerca de 3 s no computador do aluno, com Apple Silicon, e levou 17 s no ambiente de trabalho da primeira execução; os tempos variam com o processador, as métricas não). As figuras são gravadas em `assets/figuras/ir_alem2/` quando a pasta do repositório é detectada; caso contrário, apenas exibidas.
 
 ## Entregáveis do Ir Além 2
 
-Notebook comentado (este diretório), repositório público (este repositório), relatório comparativo de duas páginas em `document/relatorio_ir_alem2.docx` e vídeo de até 4 minutos com os resultados, publicado como não listado no YouTube e linkado no README principal.
+Notebook comentado (este diretório), repositório público (este repositório), relatório comparativo de duas páginas em `document/relatorio_ir_alem2.docx` e vídeo de até 4 minutos com os resultados, publicado como não listado no YouTube e linkado no README principal. O vídeo foi gravado com a execução de 31/10 no ambiente de trabalho (treino da rede LIF em 17 s e inferência em 1,2 ms por janela); a execução gravada neste notebook, no computador do aluno, tem as mesmas métricas e tempos menores (3 s e 0,3 ms).

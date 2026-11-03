@@ -15,7 +15,7 @@ Projeto CardioIA, Fase 3, Grupo 55. Repositório: `FIAP_2TIAOR_2026_Ano2_Fase3`,
 
 ## 2. Regenerar os relatórios depois de inserir os links
 
-Na pasta `03_entrega` (requer Node.js e o pacote `docx`: `npm install docx` em `config/` ou globalmente):
+Na pasta `03_entrega` (requer Node.js e o pacote `docx`: `cd config && npm install`, ou `npm install docx` na raiz):
 
 ```bash
 node scripts/md_para_docx.js document/md/relatorio_parte1.md document/relatorio_parte1.docx "CardioIA, Fase 3, Parte 1: Edge Computing"
@@ -96,15 +96,7 @@ Repetir a auditoria de `document/checklist_rubrica.md` após o push.
 
 ## 7. Arquivo de upload na plataforma
 
-O formato exigido deve ser conferido na própria tela de envio da atividade (PDF, .txt ou .zip). Conteúdo mínimo, a preparar fora do repositório (por exemplo, `Fase 3/entrega/arquivo_upload_fase3.txt`):
-
-- identificação: curso Inteligência Artificial, turma 2TIAOR, Fase 3, Grupo 55;
-- nome completo e RM: Silvio Prestes Guerreiro Junior, RM 567958;
-- link do repositório: https://github.com/silvioguerreiro/FIAP_2TIAOR_2026_Ano2_Fase3;
-- links dos dois projetos no Wokwi (Parte 1 e Parte 2);
-- indicação de que o Ir Além 1 está na pasta `src/ir_alem1_rest_email` do mesmo repositório.
-
-Se a plataforma exigir PDF, exportar o .txt (ou o documento de entrega em DOCX) como PDF; se exigir .zip, compactar. Abrir o arquivo final e testar cada link antes de enviar. Não é possível substituir o arquivo depois do fechamento da entrega ou da correção.
+O formato exigido deve ser conferido na própria tela de envio da atividade (PDF, .txt ou .zip). O arquivo foi preparado fora do repositório, na pasta de trabalho `04_upload/`: `CardioIA_Fase3_Grupo55_RM567958_entrega_completa.pdf` reúne o documento de entrega (identificação, links clicáveis do repositório, dos projetos no Wokwi e do vídeo, resumo, roteiro de avaliação e declaração LGPD) e os quatro relatórios (Parte 1, Parte 2, Ir Além 1 e Ir Além 2), em 33 páginas; `CardioIA_Fase3_Grupo55_RM567958_documento_entrega.pdf` é a versão curta, só com o documento de entrega. Se a plataforma exigir .zip, compactar o PDF escolhido. Abrir o arquivo final e testar cada link antes de enviar. Não é possível substituir o arquivo depois do fechamento da entrega ou da correção.
 
 ## 8. Recomendações expressas da FIAP nas fases anteriores
 

@@ -159,13 +159,18 @@ bool spiffsOk = false;
 void IRAM_ATTR isrBatimento() {
   uint32_t agora = millis();
   if (agora - ultimoBatimentoMs < DEBOUNCE_BATIMENTO_MS) return;  // ruído
-  if (ultimoBatimentoMs != 0) {
+  // Uma pausa maior que TEMPO_ZERAR_BPM_MS encerra a sequência anterior: esse
+  // intervalo não entra na média (evita bpm de 1 a 11 e bradicardia falsa).
+  if (ultimoBatimentoMs != 0 && agora - ultimoBatimentoMs <= TEMPO_ZERAR_BPM_MS) {
     intervalosMs[idxIntervalo] = agora - ultimoBatimentoMs;
     idxIntervalo = (idxIntervalo + 1) % N_INTERVALOS_MEDIA;
-    if (nIntervalos < N_INTERVALOS_MEDIA) nIntervalos++;
+    if (nIntervalos < N_INTERVALOS_MEDIA) nIntervalos = nIntervalos + 1;
+  } else {
+    nIntervalos = 0;   // nova sequência de batimentos começa limpa
+    idxIntervalo = 0;
   }
   ultimoBatimentoMs = agora;
-  totalBatimentos++;
+  totalBatimentos = totalBatimentos + 1;
 }
 
 // Frequência cardíaca pela média móvel dos últimos intervalos entre
@@ -181,7 +186,9 @@ uint16_t calcularBpm() {
   for (uint8_t i = 0; i < N_INTERVALOS_MEDIA; i++) copiaIntervalos[i] = intervalosMs[i];
   interrupts();
 
-  if (n == 0 || ultimo == 0) return 0;
+  if (ultimo == 0) return 0;
+  // A expiração vem antes do teste de n == 0: após uma única pressão seguida de
+  // pausa longa, o histórico também precisa ser zerado.
   if (millis() - ultimo > TEMPO_ZERAR_BPM_MS) {
     // Zera o histórico para que a próxima sequência comece limpa.
     noInterrupts();
@@ -191,6 +198,7 @@ uint16_t calcularBpm() {
     interrupts();
     return 0;
   }
+  if (n == 0) return 0;
   uint32_t soma = 0;
   for (uint8_t i = 0; i < n; i++) soma += copiaIntervalos[i];
   uint32_t media = soma / n;

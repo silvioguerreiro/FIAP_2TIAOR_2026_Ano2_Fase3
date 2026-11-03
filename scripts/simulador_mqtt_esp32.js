@@ -1,5 +1,7 @@
 // Simulador de teste do fluxo Node-RED: publica mensagens no mesmo formato do firmware da Parte 2
 // (apenas para validar o fluxo no ambiente de trabalho; nao substitui o dispositivo).
+// Os pacotes instalados por "cd config && npm install" tambem sao encontrados a partir desta pasta.
+module.paths.push(require('path').join(__dirname, '..', 'config', 'node_modules'));
 const mqtt = require('mqtt');
 const host = process.argv[2] || 'mqtt://127.0.0.1:1883';
 const prefixo = 'cardioia/grupo55/paciente01';

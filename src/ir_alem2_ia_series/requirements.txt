@@ -1,4 +1,4 @@
-# Ir Alem 2: versoes usadas na execucao de 31/10/2026 (Python 3.12); versoes proximas funcionam
+# Ir Alem 2: versoes usadas na execucao gravada em 02/11/2026 (Python 3.14; tambem executado com 3.13); versoes proximas funcionam
 numpy==2.5.3
 pandas==3.0.5
 scikit-learn==1.9.1

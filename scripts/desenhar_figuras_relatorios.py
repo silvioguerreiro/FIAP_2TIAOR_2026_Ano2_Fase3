@@ -1,10 +1,15 @@
 """Figuras dos relatorios da Fase 3 (CardioIA): diagrama de blocos, maquina de
 estados e arquitetura Edge/Fog/Cloud. Desenho manual com matplotlib para
 controle total do layout (nomes de arquivo em ASCII)."""
+from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+
+# As figuras sao gravadas em assets/figuras/, onde o README e os relatorios as referenciam.
+PASTA_FIGURAS = Path(__file__).resolve().parent.parent / "assets" / "figuras"
+PASTA_FIGURAS.mkdir(parents=True, exist_ok=True)
 
 AZUL = "#1f4e79"; AZUL_CLARO = "#dbe8f5"; VERDE = "#2e7d32"; VERDE_CLARO = "#e3f2e6"
 LARANJA = "#b85c00"; LARANJA_CLARO = "#fdebd3"; CINZA = "#444444"; CINZA_CLARO = "#f2f2f2"
@@ -95,7 +100,7 @@ seta(ax, (6.55, 3.6), (6.85, 3.6), texto="OFFLINE", fs=8)
 seta(ax, (6.55, 3.0), (10.35, 2.3), curva=0.1, texto="ONLINE: envio imediato", pos=0.5, desloc=(0.0, 0.0), fs=8)
 seta(ax, (9.45, 3.4), (10.35, 2.75), texto="ao voltar ONLINE: SYNC dos\npendentes em ordem cronologica,\ndepois limpa o buffer", pos=0.35, desloc=(0.35, 0.72), fs=7.6)
 seta(ax, (6.85, 2.95), (6.3, 2.15), ls="--", texto="espelho\n(flag)", fs=7.6, desloc=(-0.45, 0.0), estilo="<|-|>")
-fig.savefig("fig_p1_diagrama_blocos.png", facecolor="white")
+fig.savefig(PASTA_FIGURAS / "fig_p1_diagrama_blocos.png", facecolor="white")
 plt.close(fig)
 
 # ---------------------------------------------------------------------------
@@ -115,7 +120,7 @@ seta(ax, (8.6, 3.1), (9.2, 3.1), texto="todas as pendentes\nenviadas; buffer lim
 seta(ax, (4.3, 1.9), (9.2, 1.9), curva=0.25, texto="chave ligada e buffer vazio", fs=8.5, pos=0.5, desloc=(0, 0.0))
 seta(ax, (9.2, 1.65), (4.3, 1.65), curva=-0.45, texto="chave desligada (conexao perdida): continua coletando", fs=8.5, pos=0.5, desloc=(0, 0.0), cor=VERMELHO)
 ax.text(6.75, 5.85, "Eventos: a chave deslizante (GPIO 18) e lida a cada iteracao do loop; a transicao OFFLINE para ONLINE dispara a sincronizacao antes de retomar o envio em tempo real.", ha="center", va="center", fontsize=8.6, color=CINZA)
-fig.savefig("fig_p1_maquina_estados.png", facecolor="white")
+fig.savefig(PASTA_FIGURAS / "fig_p1_maquina_estados.png", facecolor="white")
 plt.close(fig)
 
 # ---------------------------------------------------------------------------
@@ -144,11 +149,11 @@ seta(ax, (6.1, 2.0), (6.6, 2.0), texto="alerta", fs=7.8, desloc=(0, 0.2))
 seta(ax, (6.1, 1.0), (6.6, 1.0), estilo="<|-|>")
 seta(ax, (4.65, 2.45), (4.65, 5.95), texto="MQTT publish\n.../sinais, .../alertas, .../estado\nTCP 1883 ou TLS 8883\n1 mensagem JSON a cada 5 s", fs=8.0, desloc=(1.05, 0.0), cor=VERDE, lw=1.8)
 seta(ax, (3.35, 2.45), (2.5, 5.95), ls="--", lw=1.0, texto="hora NTP", fs=7.8, desloc=(-0.55, 0.0))
-seta(ax, (6.1, 6.5), (7.6, 5.05), texto="MQTT subscribe\ncardioia/grupo55/paciente01/#", fs=8.0, pos=0.5, desloc=(-1.0, -0.05), cor=ROXO, lw=1.8)
+seta(ax, (6.1, 6.5), (7.6, 5.05), texto="MQTT subscribe (3 topicos)\n.../sinais, .../alertas, .../estado", fs=8.0, pos=0.5, desloc=(-1.0, -0.05), cor=ROXO, lw=1.8)
 seta(ax, (8.9, 5.05), (8.3, 5.95), ls="--", lw=1.0, texto="HTTP\n(opcional)", fs=7.6, desloc=(0.5, 0.1))
 seta(ax, (10.3, 5.05), (11.2, 5.95), ls="--", lw=1.0, texto="HTTP POST\n(opcional)", fs=7.6, desloc=(0.6, 0.0))
 seta(ax, (10.6, 4.2), (10.9, 4.2))
 ax.text(6.75, 0.12, "Fluxo principal: a borda coleta, decide e armazena; o broker na nuvem distribui; o Node-RED (fog) normaliza, avalia e exibe. Tracejado: integracoes opcionais.", ha="center", va="center", fontsize=8.4, color=CINZA)
-fig.savefig("fig_p2_arquitetura_edge_fog_cloud.png", facecolor="white")
+fig.savefig(PASTA_FIGURAS / "fig_p2_arquitetura_edge_fog_cloud.png", facecolor="white")
 plt.close(fig)
 print("ok")

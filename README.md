@@ -166,7 +166,7 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
 - <b>assets</b>: elementos não estruturados do repositório: logo institucional, figuras dos relatórios (diagrama de blocos, máquina de estados, arquitetura e sequência MQTT), figuras do notebook do Ir Além 2 e as evidências de execução (logs e capturas) das Partes 1 e 2.
 
-- <b>config</b>: arquivos de configuração do projeto: dependências Python das figuras (`requirements.txt`) e pacotes Node.js do simulador de mensagens, do broker local de teste e das capturas (`package.json`).
+- <b>config</b>: arquivos de configuração do projeto: dependências Python das figuras (`requirements.txt`) e pacotes Node.js do simulador de mensagens, do broker local de teste e do conversor dos relatórios (`package.json`; instale com `cd config && npm install`).
 
 - <b>document</b>: documentos do projeto: relatórios das Partes 1 e 2 e dos Ir Além 1 e 2 em DOCX, documento de entrega, checklist da rubrica, roteiro de entrega e os rascunhos em Markdown que geram os relatórios (`document/md/`).
 
@@ -194,7 +194,7 @@ FIAP_2TIAOR_2026_Ano2_Fase3/
 │       └── ir_alem1/                      # saídas do cliente, da ponte MQTT, e-mails simulados, testes e captura do Node-RED
 ├── config/
 │   ├── requirements.txt                   # matplotlib (figuras)
-│   └── package.json                       # mqtt e aedes (simulador e broker local de teste)
+│   └── package.json                       # mqtt, docx e aedes (simulador, conversor dos relatorios e broker local de teste)
 ├── document/
 │   ├── relatorio_parte1.docx              # relatório da Parte 1 (Edge)
 │   ├── relatorio_parte2.docx              # relatório da Parte 2 (Fog/Cloud)
@@ -263,16 +263,18 @@ node-red
 
 Importe `src/parte2_fog_cloud/node_red/flows.json` pelo menu Import, confira o broker no nó de configuração (broker público por padrão; para o HiveMQ Cloud, altere servidor e porta, marque TLS e preencha usuário e senha na aba Security), clique em Deploy e abra http://localhost:1880/dashboard/paciente01.
 
-**Teste sem o ESP32:** `npm install mqtt` e `node scripts/simulador_mqtt_esp32.js mqtt://broker.hivemq.com:1883` publica mensagens no formato do firmware, incluindo cenários de taquicardia e febre.
+**Teste sem o ESP32:** `cd config && npm install` (ou `npm install mqtt` na raiz) e, de volta à raiz, `node scripts/simulador_mqtt_esp32.js mqtt://broker.hivemq.com:1883` publica mensagens no formato do firmware, incluindo cenários de taquicardia e febre.
 
 **Ir Além 1 (API REST e e-mail):** `cd src/ir_alem1_rest_email && pip install -r requirements.txt && uvicorn api.main:app` e, em outro terminal, `python -m cliente.cliente_rest`; testes com `python -m pytest -v`. Detalhes, integração MQTT e modos de e-mail no README do módulo.
 
 **Ir Além 2 (séries temporais):** `cd src/ir_alem2_ia_series && pip install -r requirements.txt && jupyter lab cardioia_fase3_ir_alem2_series_lif.ipynb` (ou abra o notebook no VS Code); as saídas já estão gravadas e a execução completa leva menos de um minuto. Detalhes e resultados no README do módulo.
 
-**Regenerar artefatos:** `python3 scripts/gerar_flows_node_red.py src/parte2_fog_cloud/node_red/flows.json` (sem dependências); `pip install -r config/requirements.txt && python3 scripts/desenhar_figuras_relatorios.py` (figuras); `node scripts/md_para_docx.js document/md/relatorio_parte1.md document/relatorio_parte1.docx "CardioIA, Fase 3, Parte 1"` (relatórios; requer o pacote npm `docx`).
+**Regenerar artefatos:** `python3 scripts/gerar_flows_node_red.py src/parte2_fog_cloud/node_red/flows.json` (sem dependências); `pip install -r config/requirements.txt && python3 scripts/desenhar_figuras_relatorios.py` (figuras, gravadas em `assets/figuras/`); `node scripts/md_para_docx.js document/md/relatorio_parte1.md document/relatorio_parte1.docx "CardioIA, Fase 3, Parte 1"` (relatórios; requer o pacote npm `docx`, instalado por `cd config && npm install`).
 
 ## 🗃 Histórico de lançamentos
 
+* 0.1.1 - 03/11/2026
+    * Revisão: cálculo de bpm passa a descartar o intervalo de uma pausa maior que 5 s entre batimentos (evita alerta falso de bradicardia após uma pressão isolada), nos dois firmwares e nos projetos públicos do Wokwi, verificado por simulação; notebook do Ir Além 2 reexecutado (métricas iguais, tempos atualizados); figuras e relatórios regenerados; referências cruzadas e valores corrigidos nos relatórios (janela dos gráficos de 30 min, assinatura dos três tópicos, 605 s até o alerta de imobilidade); scripts com caminhos de saída e de pacotes explícitos.
 * 0.1.0 - 02/11/2026
     * Entrega da Fase 3: firmware da Parte 1 (Edge) e da Parte 2 (MQTT), fluxo do Node-RED com Dashboard 2.0, Ir Além 1 (API REST, risco e e-mail), Ir Além 2 (notebook comparativo entre regressão logística e rede LIF, relatório e vídeo), evidências, relatórios, documento de entrega e documentação.
 

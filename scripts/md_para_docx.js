@@ -7,14 +7,17 @@
  * (## e ###), paragrafos, tabelas com cabecalho, blocos de codigo (```),
  * imagens ![legenda](caminho) seguidas de um paragrafo de legenda
  * ("Figura N. ..."), paragrafos "Tabela N. ..." antes de tabelas e a secao
- * "Referencias" com recuo deslocado. Inline: `codigo` e **negrito**.
+ * "Referencias" com recuo deslocado. Inline: `codigo`, **negrito** e URLs como hiperlinks.
  * Pagina A4, margens de 2,5 cm, fonte Arial 11, legendas em italico 9.
  */
 const fs = require("fs");
 const path = require("path");
+// Os pacotes instalados por "cd config && npm install" tambem sao encontrados a partir desta pasta.
+module.paths.push(path.join(__dirname, "..", "config", "node_modules"));
 const {
   Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell,
   WidthType, BorderStyle, ShadingType, ImageRun, Header, Footer, PageNumber, TabStopType, LevelFormat,
+  ExternalHyperlink,
 } = require("docx");
 
 const [, , entrada, saida, textoCabecalho, espacoLinhaArg] = process.argv;
@@ -55,18 +58,39 @@ function dimensoes(buf, ext) {
 // ---------------------------------------------------------------------------
 // Inline: `codigo` e **negrito**
 // ---------------------------------------------------------------------------
+// Texto simples com URLs convertidas em hiperlinks clicaveis (azul, sublinhado)
+function runsTexto(texto, base = {}) {
+  const partes = [];
+  const reUrl = /https?:\/\/[^\s<>()]+/g;
+  let ult = 0, m;
+  while ((m = reUrl.exec(texto)) !== null) {
+    let url = m[0];
+    let cauda = "";
+    while (url.length && /[.,;:]$/.test(url)) { cauda = url.slice(-1) + cauda; url = url.slice(0, -1); }
+    if (m.index > ult) partes.push(new TextRun({ text: texto.slice(ult, m.index), font: FONTE, ...base }));
+    partes.push(new ExternalHyperlink({
+      link: url,
+      children: [new TextRun({ text: url, font: FONTE, ...base, color: "0563C1", underline: {} })],
+    }));
+    if (cauda) partes.push(new TextRun({ text: cauda, font: FONTE, ...base }));
+    ult = m.index + m[0].length;
+  }
+  if (ult < texto.length) partes.push(new TextRun({ text: texto.slice(ult), font: FONTE, ...base }));
+  return partes;
+}
+
 function runs(texto, base = {}) {
   const partes = [];
   const re = /(`[^`]+`|\*\*[^*]+\*\*)/g;
   let ult = 0, m;
   while ((m = re.exec(texto)) !== null) {
-    if (m.index > ult) partes.push(new TextRun({ text: texto.slice(ult, m.index), font: FONTE, ...base }));
+    if (m.index > ult) partes.push(...runsTexto(texto.slice(ult, m.index), base));
     const tok = m[0];
     if (tok.startsWith("`")) partes.push(new TextRun({ text: tok.slice(1, -1), font: FONTE_MONO, size: (base.size || 22) - 2, ...base, font: FONTE_MONO }));
     else partes.push(new TextRun({ text: tok.slice(2, -2), font: FONTE, bold: true, ...base }));
     ult = m.index + tok.length;
   }
-  if (ult < texto.length) partes.push(new TextRun({ text: texto.slice(ult), font: FONTE, ...base }));
+  if (ult < texto.length) partes.push(...runsTexto(texto.slice(ult), base));
   return partes;
 }
 
